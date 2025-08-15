@@ -1,0 +1,65 @@
+{
+    "common": {
+        "appTitle": "Sudoku Web",
+        "solveButton": "Risolvi",
+        "clearButton": "Cancella",
+        "creating": "Creazione...",
+        "searching": "Ricerca...",
+        "solution": "Soluzione",
+        "toggleTheme": "Cambia tema",
+        "footerText": "Grazie per aver utilizzato il Sudoku Web! ❤️"
+    },
+    "nav": {
+        "generator": "Generatore PDF",
+        "solver": "Risolutore"
+    },
+    "difficulty": {
+        "label": "Difficoltà",
+        "child": "Bambino",
+        "easy": "Facile",
+        "medium": "Medio",
+        "hard": "Difficile",
+        "expert": "Esperto",
+        "impossible": "Impossibile"
+    },
+    "generator": {
+        "title": "Generatore PDF di Sudoku",
+        "difficultyTitle": "Seleziona i livelli di difficoltà",
+        "pageSettingsTitle": "Configura impostazioni pagina",
+        "pageCountLabel": "Numero di pagine:",
+        "sudokusPerPageLabel": "Sudoku per pagina:",
+        "createPdfButton": "Crea e salva PDF",
+        "creating": "Creazione...",
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6"
+    },
+    "solver": {
+        "title": "Risolutore di Sudoku",
+        "description": "Inserisci il Sudoku che vuoi risolvere nella tabella sottostante e clicca sul pulsante 'Risolvi'.",
+        "invalidGridError": "Il Sudoku inserito non è valido. Correggi gli errori e riprova.",
+        "searchingMessage": "Ricerca soluzioni...",
+        "noSolutionError": "Questo puzzle non ha soluzione.",
+        "multipleSolutionsFound": "Sono state trovate {{count}} soluzioni diverse per questo puzzle.",
+        "multipleSolutionsFoundMaybeTooMany": "Sono state trovate {{count}} soluzioni, ma potrebbero essercene altre.",
+        "solveSuccess": "Puzzle risolto con successo!",
+        "solutionsLabel": "Soluzioni disponibili",
+        "solutionLabel": "Soluzione {{number}}",
+        "solveButton": "Risolvi",
+        "clearButton": "Cancella"
+    },
+    "pdf": {
+        "difficultyLabel": "Difficoltà: {{difficulty}}",
+        "pageLabel": "Pagina {{currentPage}}/{{totalPages}}",
+        "creatingMessage": "Creazione PDF in corso, attendere... È possibile uscire da questa pagina durante la creazione, ma non aggiornarla o chiuderla.",
+        "successMessage": "PDF creato e scaricato con successo!",
+        "noDifficultyError": "Seleziona almeno un livello di difficoltà per creare il PDF."
+    },
+    "error": {
+        "generic": "Si è verificato un errore. Controlla la console.",
+        "fontLoadError": "Impossibile caricare i caratteri PDF."
+    }
+}

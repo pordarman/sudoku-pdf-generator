@@ -1,0 +1,65 @@
+{
+    "common": {
+        "appTitle": "Веб-судоку",
+        "solveButton": "Решить",
+        "clearButton": "Очистить",
+        "creating": "Создание...",
+        "searching": "Поиск...",
+        "solution": "Решение",
+        "toggleTheme": "Сменить тему",
+        "footerText": "Спасибо за использование веб-судоку! ❤️"
+    },
+    "nav": {
+        "generator": "Генератор PDF",
+        "solver": "Решатель"
+    },
+    "difficulty": {
+        "label": "Уровень сложности",
+        "child": "Детский",
+        "easy": "Легкий",
+        "medium": "Средний",
+        "hard": "Сложный",
+        "expert": "Эксперт",
+        "impossible": "Невозможно"
+    },
+    "generator": {
+        "title": "Генератор PDF-судоку",
+        "difficultyTitle": "Выберите уровень сложности",
+        "pageSettingsTitle": "Настроить параметры страницы",
+        "pageCountLabel": "Количество страниц:",
+        "sudokusPerPageLabel": "Судоку на странице:",
+        "createPdfButton": "Создать и сохранить PDF",
+        "creating": "Создание...",
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6"
+    },
+    "solver": {
+        "title": "Решатель судоку",
+        "description": "Введите судоку, которое хотите решить, в таблицу ниже и нажмите кнопку \"Решить\".",
+        "invalidGridError": "Введенное судоку недействительно. Исправьте ошибки и повторите попытку.",
+        "searchingMessage": "Поиск решений...",
+        "noSolutionError": "У этой головоломки нет решения.",
+        "multipleSolutionsFound": "Найдено {{count}} различных решений для этой головоломки.",
+        "multipleSolutionsFoundMaybeTooMany": "Найдено {{count}} решений, но их может быть больше.",
+        "solveSuccess": "Головоломка успешно решена!",
+        "solutionsLabel": "Доступные решения",
+        "solutionLabel": "Решение {{number}}",
+        "solveButton": "Решить",
+        "clearButton": "Очистить"
+    },
+    "pdf": {
+        "difficultyLabel": "Сложность: {{difficulty}}",
+        "pageLabel": "Страница {{currentPage}}/{{totalPages}}",
+        "creatingMessage": "Создание PDF-файла, пожалуйста, подождите... Вы можете покинуть эту страницу, пока она создаётся. Создан, но, пожалуйста, не обновляйте и не закрывайте страницу.",
+        "successMessage": "PDF-файл успешно создан и загружен!",
+        "noDifficultyError": "Выберите хотя бы один уровень сложности для создания PDF-файла."
+    },
+    "error": {
+        "generic": "Произошла ошибка. Проверьте консоль.",
+        "fontLoadError": "Не удалось загрузить шрифты PDF."
+    }
+}

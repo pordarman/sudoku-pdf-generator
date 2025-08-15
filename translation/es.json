@@ -1,0 +1,65 @@
+{
+    "common": {
+        "appTitle": "Sudoku Web",
+        "solveButton": "Resolver",
+        "clearButton": "Borrar",
+        "creating": "Creando...",
+        "searching": "Buscando...",
+        "solution": "Solución",
+        "toggleTheme": "Alternar tema",
+        "footerText": "¡Gracias por usar Sudoku Web! ❤️"
+    },
+    "nav": {
+        "generator": "Generador de PDF",
+        "solver": "Solucionador"
+    },
+    "difficulty": {
+        "label": "Dificultad",
+        "child": "Niño",
+        "easy": "Fácil",
+        "medium": "Medio",
+        "hard": "Difícil",
+        "expert": "Experto",
+        "impossible": "Imposible"
+    },
+    "generator": {
+        "title": "Generador de Sudoku PDF",
+        "difficultyTitle": "Seleccionar niveles de dificultad",
+        "pageSettingsTitle": "Configurar ajustes de página",
+        "pageCountLabel": "Número de páginas:",
+        "sudokusPerPageLabel": "Sudoku por página:",
+        "createPdfButton": "Crear y guardar PDF",
+        "creating": "Creando...",
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6"
+    },
+    "solver": {
+        "title": "Solucionador de sudokus",
+        "description": "Introduce el sudoku que quieres resolver en la tabla de abajo y haz clic en el botón 'Resolver'.",
+        "invalidGridError": "El sudoku introducido no es válido. Corrige los errores y vuelve a intentarlo.",
+        "searchingMessage": "Buscando soluciones...",
+        "noSolutionError": "Este rompecabezas no tiene solución.",
+        "multipleSolutionsFound": "Se encontraron {{count}} soluciones diferentes para este rompecabezas.",
+        "multipleSolutionsFoundMaybeTooMany": "Se encontraron {{count}} soluciones, pero puede haber más.",
+        "solveSuccess": "¡Rompecabezas resuelto correctamente!",
+        "solutionsLabel": "Soluciones disponibles",
+        "solutionLabel": "Solución {{number}}",
+        "solveButton": "Resolver",
+        "clearButton": "Borrar"
+    },
+    "pdf": {
+        "difficultyLabel": "Dificultad: {{difficulty}}",
+        "pageLabel": "Página {{currentPage}}/{{totalPages}}",
+        "creatingMessage": "Creando PDF, espere... Puede salir de esta página mientras se crea, pero no la actualice ni la cierre.",
+        "successMessage": "PDF creado correctamente y ¡Descargado!",
+        "noDifficultyError": "Selecciona al menos un nivel de dificultad para crear el PDF."
+    },
+    "error": {
+        "generic": "Se ha producido un error. Por favor, revisa la consola.",
+        "fontLoadError": "Error al cargar las fuentes PDF."
+    }
+}

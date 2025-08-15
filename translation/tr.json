@@ -1,0 +1,65 @@
+{
+    "common": {
+        "appTitle": "Web Sudoku",
+        "solveButton": "Çöz",
+        "clearButton": "Temizle",
+        "creating": "Oluşturuluyor...",
+        "searching": "Aranıyor...",
+        "solution": "Çözüm",
+        "toggleTheme": "Temayı Değiştir",
+        "footerText": "Web Sudoku'yu kullandığınız için teşekkür ederiz! ❤️"
+    },
+    "nav": {
+        "generator": "PDF Oluşturucu",
+        "solver": "Çözücü"
+    },
+    "difficulty": {
+        "label": "Zorluk",
+        "child": "Çocuk",
+        "easy": "Kolay",
+        "medium": "Orta",
+        "hard": "Zor",
+        "expert": "Uzman",
+        "impossible": "İmkansız"
+    },
+    "generator": {
+        "title": "Sudoku PDF Oluşturucu",
+        "difficultyTitle": "Zorluk Seviyelerini Seçin",
+        "pageSettingsTitle": "Sayfa Ayarlarını Yapın",
+        "pageCountLabel": "Sayfa Sayısı:",
+        "sudokusPerPageLabel": "Sayfa Başına Sudoku:",
+        "createPdfButton": "PDF Oluştur ve Kaydet",
+        "creating": "Oluşturuluyor...",
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6"
+    },
+    "solver": {
+        "title": "Sudoku Çözücü",
+        "description": "Çözmek istediğiniz Sudoku'yu aşağıdaki tabloya girin ve 'Çöz' düğmesine tıklayın.",
+        "invalidGridError": "Girilen Sudoku geçersiz. Lütfen hataları düzeltin ve tekrar deneyin.",
+        "searchingMessage": "Çözümler aranıyor...",
+        "noSolutionError": "Bu bulmacanın bir çözümü yok.",
+        "multipleSolutionsFound": "Bu bulmaca için {{count}} farklı çözüm bulundu.",
+        "multipleSolutionsFoundMaybeTooMany": "Bu bulmaca için {{count}} çözüm bulundu ama daha fazla olabilir.",
+        "solveSuccess": "Bulmaca başarıyla çözüldü!",
+        "solutionsLabel": "Mevcut Çözümler",
+        "solutionLabel": "Çözüm {{number}}",
+        "solveButton": "Çöz",
+        "clearButton": "Temizle"
+    },
+    "pdf": {
+        "difficultyLabel": "Zorluk: {{difficulty}}",
+        "pageLabel": "Sayfa {{currentPage}}/{{totalPages}}",
+        "creatingMessage": "PDF oluşturuluyor, lütfen bekleyiniz... Bu sırada sayfadan ayrılabilirsiniz ama sayfayı yenilemeyin veya kapatmayın.",
+        "successMessage": "PDF başarıyla oluşturuldu ve indirildi!",
+        "noDifficultyError": "Lütfen PDF oluşturmak için en az bir zorluk seviyesi seçin."
+    },
+    "error": {
+        "generic": "Bir hata oluştu. Lütfen konsolu ve güvenlik kurallarınızı kontrol edin.",
+        "fontLoadError": "PDF fontları yüklenemedi."
+    }
+}
