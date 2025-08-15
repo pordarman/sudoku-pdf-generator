@@ -1,0 +1,65 @@
+{
+    "common": {
+        "appTitle": "ウェブ数独",
+        "solveButton": "解答",
+        "clearButton": "クリア",
+        "creating": "作成中...",
+        "searching": "検索中...",
+        "solution": "解答",
+        "toggleTheme": "テーマ切替",
+        "footerText": "ウェブ数独をご利用いただきありがとうございます！❤️"
+    },
+    "nav": {
+        "generator": "PDFジェネレーター",
+        "solver": "ソルバー"
+    },
+    "difficulty": {
+        "label": "難易度",
+        "child": "子供",
+        "easy": "簡単",
+        "medium": "中",
+        "hard": "難しい",
+        "expert": "上級者",
+        "impossible": "不可能"
+    },
+    "generator": {
+        "title": "数独PDFジェネレーター",
+        "difficultyTitle": "難易度を選択",
+        "pageSettingsTitle": "ページ設定を行う",
+        "pageCountLabel": "ページ数:",
+        "sudokusPerPageLabel": "1ページあたりの数独数:",
+        "createPdfButton": "PDFを作成して保存する",
+        "creating": "作成中...",
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6"
+    },
+    "solver": {
+        "title": "数独ソルバー",
+        "description": "下の表に解きたい数独を入力し、「解く」ボタンをクリックしてください。",
+        "invalidGridError": "入力した数独は無効です。エラーを修正してもう一度お試しください。",
+        "searchingMessage": "解答を検索しています...",
+        "noSolutionError": "このパズルには解答がありません。",
+        "multipleSolutionsFound": "{{count}}通りの解答が見つかりましたこのパズル。",
+        "multipleSolutionsFoundMaybeTooMany": "{{count}}個の解答が見つかりましたが、他にもある可能性があります。",
+        "solveSuccess": "パズルを解くことができました！",
+        "solutionsLabel": "利用可能な解答",
+        "solutionLabel": "解答 {{number}}",
+        "solveButton": "解決する",
+        "clearButton": "クリア"
+    },
+    "pdf": {
+        "difficultyLabel": "難易度: {{difficulty}}",
+        "pageLabel": "ページ {{currentPage}}/{{totalPages}}",
+        "creatingMessage": "PDFを作成しています。お待ちください。作成中はこのページを離れても構いませんが、ページを更新したり閉じたりしないでください。",
+        "successMessage": "PDFの作成とダウンロードに成功しました！",
+        "noDifficultyError": "PDFを作成するには、少なくとも1つの難易度を選択してください。"
+    },
+    "error": {
+        "generic": "エラーが発生しました。コンソールをご確認ください。",
+        "fontLoadError": "PDFフォントの読み込みに失敗しました。"
+    }
+}

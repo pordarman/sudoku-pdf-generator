@@ -1,0 +1,65 @@
+{
+    "common": {
+        "appTitle": "Web Sudoku",
+        "solveButton": "Solve",
+        "clearButton": "Clear",
+        "creating": "Creating...",
+        "searching": "Searching...",
+        "solution": "Solution",
+        "toggleTheme": "Toggle Theme",
+        "footerText": "Thank you for using Web Sudoku! ❤️"
+    },
+    "nav": {
+        "generator": "PDF Generator",
+        "solver": "Solver"
+    },
+    "difficulty": {
+        "label": "Difficulty",
+        "child": "Child",
+        "easy": "Easy",
+        "medium": "Medium",
+        "hard": "Hard",
+        "expert": "Expert",
+        "impossible": "Impossible"
+    },
+    "generator": {
+        "title": "Sudoku PDF Generator",
+        "difficultyTitle": "Select Difficulty Levels",
+        "pageSettingsTitle": "Configure Page Settings",
+        "pageCountLabel": "Number of Pages:",
+        "sudokusPerPageLabel": "Sudoku Per Page:",
+        "createPdfButton": "Create and Save PDF",
+        "creating": "Creating...",
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6"
+    },
+    "solver": {
+        "title": "Sudoku Solver",
+        "description": "Enter the Sudoku you want to solve in the table below and click the 'Solve' button.",
+        "invalidGridError": "The entered Sudoku is invalid. Please correct the errors and try again.",
+        "searchingMessage": "Searching for solutions...",
+        "noSolutionError": "This puzzle has no solution.",
+        "multipleSolutionsFound": "{{count}} different solutions were found for this puzzle.",
+        "multipleSolutionsFoundMaybeTooMany": "{{count}} solutions were found, but there may be more.",
+        "solveSuccess": "Puzzle successfully solved!",
+        "solutionsLabel": "Available Solutions",
+        "solutionLabel": "Solution {{number}}",
+        "solveButton": "Solve",
+        "clearButton": "Clear"
+    },
+    "pdf": {
+        "difficultyLabel": "Difficulty: {{difficulty}}",
+        "pageLabel": "Page {{currentPage}}/{{totalPages}}",
+        "creatingMessage": "Creating PDF, please wait... You can leave this page while it's being created, but please don't refresh or close the page.",
+        "successMessage": "PDF successfully created and downloaded!",
+        "noDifficultyError": "Please select at least one difficulty level to create PDF."
+    },
+    "error": {
+        "generic": "An error occurred. Please check the console.",
+        "fontLoadError": "Failed to load PDF fonts."
+    }
+}

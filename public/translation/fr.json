@@ -1,0 +1,65 @@
+{
+    "common": {
+        "appTitle": "Sudoku Web",
+        "solveButton": "Résoudre",
+        "clearButton": "Effacer",
+        "creating": "Création...",
+        "searching": "Recherche...",
+        "solution": "Solution",
+        "toggleTheme": "Changer de thème",
+        "footerText": "Merci d'utiliser Web Sudoku! ❤️"
+    },
+    "nav": {
+        "generator": "Générateur PDF",
+        "solver": "Solveur"
+    },
+    "difficulty": {
+        "label": "Difficulté",
+        "child": "Enfant",
+        "easy": "Facile",
+        "medium": "Moyen",
+        "hard": "Difficile",
+        "expert": "Expert",
+        "impossible": "Impossible"
+    },
+    "generator": {
+        "title": "Générateur PDF de Sudoku",
+        "difficultyTitle": "Sélectionner les niveaux de difficulté",
+        "pageSettingsTitle": "Configurer les paramètres de page",
+        "pageCountLabel": "Nombre de pages :",
+        "sudokusPerPageLabel": "Sudoku par page :",
+        "createPdfButton": "Créer et enregistrer un PDF",
+        "creating": "Création…",
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6"
+    },
+    "solver": {
+        "title": "Solveur de Sudoku",
+        "description": "Saisissez le Sudoku que vous souhaitez résoudre dans le tableau ci-dessous et cliquez sur le bouton « Résoudre ».",
+        "invalidGridError": "Le Sudoku saisi est invalide. Veuillez corriger les erreurs et réessayer.",
+        "searchingMessage": "Recherche de solutions…",
+        "noSolutionError": "Ce puzzle n'a pas de solution.",
+        "multipleSolutionsFound": "{{count}} solutions différentes ont été trouvées pour ce puzzle puzzle.",
+        "multipleSolutionsFoundMaybeTooMany": "{{count}} solutions ont été trouvées, mais il pourrait y en avoir d'autres.",
+        "solveSuccess": "Puzzle résolu avec succès !",
+        "solutionsLabel": "Solutions disponibles",
+        "solutionLabel": "Solution {{number}}",
+        "solveButton": "Résoudre",
+        "clearButton": "Effacer"
+    },
+    "pdf": {
+        "difficultyLabel": "Difficulté : {{difficulty}}",
+        "pageLabel": "Page {{currentPage}}/{{totalPages}}",
+        "creatingMessage": "Création du PDF, veuillez patienter... Vous pouvez quitter cette page pendant sa création, mais veuillez ne pas l'actualiser ni la fermer.",
+        "successMessage": "PDF créé et téléchargé avec succès !",
+        "noDifficultyError": "Veuillez sélectionner au moins une option Niveau de difficulté pour créer un PDF."
+    },
+    "error": {
+        "generic": "Une erreur s'est produite. Veuillez vérifier la console.",
+        "fontLoadError": "Échec du chargement des polices PDF."
+    }
+}

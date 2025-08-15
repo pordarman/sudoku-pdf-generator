@@ -1,0 +1,65 @@
+{
+    "common": {
+        "appTitle": "Web-Sudoku",
+        "solveButton": "Lösen",
+        "clearButton": "Löschen",
+        "creating": "Erstellen...",
+        "searching": "Suchen...",
+        "solution": "Lösung",
+        "toggleTheme": "Thema umschalten",
+        "footerText": "Vielen Dank für die Nutzung von Web-Sudoku! ❤️"
+    },
+    "nav": {
+        "generator": "PDF-Generator",
+        "solver": "Löser"
+    },
+    "difficulty": {
+        "label": "Schwierigkeitsgrad",
+        "child": "Kind",
+        "easy": "Einfach",
+        "medium": "Mittel",
+        "hard": "Schwer",
+        "expert": "Experte",
+        "impossible": "Unmöglich"
+    },
+    "generator": {
+        "title": "Sudoku-PDF-Generator",
+        "difficultyTitle": "Schwierigkeitsgrad auswählen",
+        "pageSettingsTitle": "Seite konfigurieren Einstellungen",
+        "pageCountLabel": "Anzahl der Seiten:",
+        "sudokusPerPageLabel": "Sudoku pro Seite:",
+        "createPdfButton": "PDF erstellen und speichern",
+        "creating": "Erstellen...",
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6"
+    },
+    "solver": {
+        "title": "Sudoku-Löser",
+        "description": "Geben Sie das zu lösende Sudoku in die Tabelle unten ein und klicken Sie auf die Schaltfläche 'Lösen'.",
+        "invalidGridError": "Das eingegebene Sudoku ist ungültig. Bitte korrigieren Sie die Fehler und versuchen Sie es erneut.",
+        "searchingMessage": "Suche nach Lösungen...",
+        "noSolutionError": "Dieses Rätsel hat keine Lösung.",
+        "multipleSolutionsFound": "Für dieses Rätsel wurden {{count}} verschiedene Lösungen gefunden.",
+        "multipleSolutionsFoundMaybeTooMany": "Es wurden {{count}} Lösungen gefunden, es können aber noch mehr vorhanden sein.",
+        "solveSuccess": "Rätsel erfolgreich gelöst!",
+        "solutionsLabel": "Verfügbare Lösungen",
+        "solutionLabel": "Lösung {{number}}",
+        "solveButton": "Lösen",
+        "clearButton": "Löschen"
+    },
+    "pdf": {
+        "difficultyLabel": "Schwierigkeitsgrad: {{difficulty}}",
+        "pageLabel": "Seite {{currentPage}}/{{totalPages}}",
+        "creatingMessage": "PDF wird erstellt. Bitte warten... Sie können diese Seite während der Erstellung verlassen. Bitte aktualisieren oder schließen Sie die Seite nicht.",
+        "successMessage": "PDF erfolgreich erstellt und heruntergeladen!",
+        "noDifficultyError": "Bitte wählen Sie mindestens einen Schwierigkeitsgrad für die PDF-Erstellung aus."
+    },
+    "error": {
+        "generic": "Ein Fehler ist aufgetreten. Bitte überprüfen Sie die Konsole.",
+        "fontLoadError": "Fehler beim Laden der PDF-Schriftarten."
+    }
+}

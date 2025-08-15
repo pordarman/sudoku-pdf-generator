@@ -1,0 +1,65 @@
+{
+    "common": {
+        "appTitle": "网页数独",
+        "solveButton": "求解",
+        "clearButton": "清除",
+        "creating": "正在创建...",
+        "searching": "正在搜索...",
+        "solution": "求解",
+        "toggleTheme": "切换主题",
+        "footerText": "感谢您使用网页数独！❤️"
+    },
+    "nav": {
+        "generator": "PDF 生成器",
+        "solver": "求解器"
+    },
+    "difficulty": {
+        "label": "难度",
+        "child": "儿童",
+        "easy": "简单",
+        "medium": "中等",
+        "hard": "困难",
+        "expert": "专家",
+        "impossible": "不可能"
+    },
+    "generator": {
+        "title": "数独 PDF 生成器",
+        "difficultyTitle": "选择难度",
+        "pageSettingsTitle": "配置页面设置",
+        "pageCountLabel": "页数：",
+        "sudokusPerPageLabel": "每页数独：",
+        "createPdfButton": "创建并保存 PDF",
+        "creating": "正在创建...",
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6"
+    },
+    "solver": {
+        "title": "数独求解器",
+        "description": "请在下表中输入您要求解的数独，然后点击“求解”按钮。",
+        "invalidGridError": "输入的数独无效。请更正错误并重试。",
+        "searchingMessage": "正在搜索答案...",
+        "noSolutionError": "此谜题无答案。",
+        "multipleSolutionsFound": "已找到 {{count}} 个不同的答案。谜题。",
+        "multipleSolutionsFoundMaybeTooMany": "找到了 {{count}} 个解决方案，但可能还有更多。",
+        "solveSuccess": "谜题成功解答！",
+        "solutionsLabel": "可用解决方案",
+        "solutionLabel": "解决方案 {{number}}",
+        "solveButton": "解答",
+        "clearButton": "清除"
+    },
+    "pdf": {
+        "difficultyLabel": "难度：{{difficulty}}",
+        "pageLabel": "页面 {{currentPage}}/{{totalPages}}",
+        "creatingMessage": "正在创建 PDF，请稍候... 您可以在创建过程中离开此页面，但请不要刷新或关闭页面。",
+        "successMessage": "PDF 创建并下载成功！",
+        "noDifficultyError": "请至少选择一个难度级别来创建 PDF。"
+    },
+    "error": {
+        "generic": "发生错误。请检查控制台。",
+        "fontLoadError": "无法加载 PDF 字体。"
+    }
+}
