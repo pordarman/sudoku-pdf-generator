@@ -1,13 +1,13 @@
 {
     "common": {
-        "appTitle": "Web Sudoku",
+        "appTitle": "Sudoku PDF Generator",
         "solveButton": "Çöz",
         "clearButton": "Temizle",
         "creating": "Oluşturuluyor...",
         "searching": "Aranıyor...",
         "solution": "Çözüm",
         "toggleTheme": "Temayı Değiştir",
-        "footerText": "Web Sudoku'yu kullandığınız için teşekkür ederiz! ❤️"
+        "footerText": "Sudoku PDF Generator'i kullandığınız için teşekkür ederiz! ❤️"
     },
     "nav": {
         "generator": "PDF Oluşturucu",
@@ -23,7 +23,7 @@
         "impossible": "İmkansız"
     },
     "generator": {
-        "title": "Sudoku PDF Oluşturucu",
+        "title": "Sudoku Oluşturucu",
         "difficultyTitle": "Zorluk Seviyelerini Seçin",
         "pageSettingsTitle": "Sayfa Ayarlarını Yapın",
         "pageCountLabel": "Sayfa Sayısı:",

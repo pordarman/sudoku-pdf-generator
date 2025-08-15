@@ -1,13 +1,13 @@
 {
     "common": {
-        "appTitle": "Sudoku Web",
+        "appTitle": "Sudoku PDF Generator",
         "solveButton": "Resolver",
         "clearButton": "Borrar",
         "creating": "Creando...",
         "searching": "Buscando...",
         "solution": "Solución",
         "toggleTheme": "Alternar tema",
-        "footerText": "¡Gracias por usar Sudoku Web! ❤️"
+        "footerText": "¡Gracias por usar Sudoku PDF Generator! ❤️"
     },
     "nav": {
         "generator": "Generador de PDF",
@@ -23,7 +23,7 @@
         "impossible": "Imposible"
     },
     "generator": {
-        "title": "Generador de Sudoku PDF",
+        "title": "Generador de Sudoku",
         "difficultyTitle": "Seleccionar niveles de dificultad",
         "pageSettingsTitle": "Configurar ajustes de página",
         "pageCountLabel": "Número de páginas:",
