@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/sudoku-pdf-generator/static/css/main.23a1cbdc.css",
-    "main.js": "/sudoku-pdf-generator/static/js/main.824c735d.js",
+    "main.js": "/sudoku-pdf-generator/static/js/main.01166c2d.js",
     "static/js/400.1b8d7e08.chunk.js": "/sudoku-pdf-generator/static/js/400.1b8d7e08.chunk.js",
     "static/js/453.a14bd40b.chunk.js": "/sudoku-pdf-generator/static/js/453.a14bd40b.chunk.js",
     "static/js/38.22b5fc3e.chunk.js": "/sudoku-pdf-generator/static/js/38.22b5fc3e.chunk.js",
     "index.html": "/sudoku-pdf-generator/index.html",
     "main.23a1cbdc.css.map": "/sudoku-pdf-generator/static/css/main.23a1cbdc.css.map",
-    "main.824c735d.js.map": "/sudoku-pdf-generator/static/js/main.824c735d.js.map",
+    "main.01166c2d.js.map": "/sudoku-pdf-generator/static/js/main.01166c2d.js.map",
     "400.1b8d7e08.chunk.js.map": "/sudoku-pdf-generator/static/js/400.1b8d7e08.chunk.js.map",
     "453.a14bd40b.chunk.js.map": "/sudoku-pdf-generator/static/js/453.a14bd40b.chunk.js.map",
     "38.22b5fc3e.chunk.js.map": "/sudoku-pdf-generator/static/js/38.22b5fc3e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.23a1cbdc.css",
-    "static/js/main.824c735d.js"
+    "static/js/main.01166c2d.js"
   ]
 }
