@@ -40,7 +40,7 @@ A powerful and easy-to-use web application for generating and solving Sudoku puz
 To run this project locally:
 
 1.  Clone the repository:
-    `git clone https://github.com/YOUR_USERNAME/sudoku-pdf-generator.git`
+    `git clone https://github.com/pordarman/sudoku-pdf-generator.git`
 2.  Navigate to the project directory:
     `cd sudoku-pdf-generator`
 3.  Install dependencies:
