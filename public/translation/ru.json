@@ -30,6 +30,7 @@
         "sudokusPerPageLabel": "Судоку на странице:",
         "createPdfButton": "Создать и сохранить PDF",
         "creating": "Создание...",
+        "generatingStatus": "Генерация PDF... ({{generated}}/{{total}})\nОценочное время: {{estimatedTime}}",
         "one": "1",
         "two": "2",
         "three": "3",

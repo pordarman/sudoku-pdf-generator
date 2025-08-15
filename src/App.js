@@ -78,6 +78,7 @@ function App() {
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [theme, setTheme] = useState('light');
+    const [generationProgress, setGenerationProgress] = useState(null);
 
     // Çözücü için state'ler
     const [grid, setGrid] = useState(createEmptyGrid());
@@ -90,12 +91,12 @@ function App() {
     const [numPages, setNumPages] = useState(1);
     const [sudokusPerPage, setSudokusPerPage] = useState(1);
     const [selectedDifficulties, setSelectedDifficulties] = useState({
-        'child': { removals: 35, labelKey: 'difficulty.child', isSelected: true, level: 0 },
-        'easy': { removals: 42, labelKey: 'difficulty.easy', isSelected: true, level: 1 },
-        'medium': { removals: 49, labelKey: 'difficulty.medium', isSelected: false, level: 2 },
-        'hard': { removals: 56, labelKey: 'difficulty.hard', isSelected: false, level: 3 },
-        'expert': { removals: 59, labelKey: 'difficulty.expert', isSelected: false, level: 4 },
-        'impossible': { removals: 64, labelKey: 'difficulty.impossible', isSelected: false, level: 5 }
+        'child': { removals: 35, labelKey: 'difficulty.child', isSelected: true, level: 0, estimatedTime: 1000 }, // Tahmini 1 saniyede
+        'easy': { removals: 42, labelKey: 'difficulty.easy', isSelected: true, level: 1, estimatedTime: 1500 }, // Tahmini 1.5 saniyede
+        'medium': { removals: 49, labelKey: 'difficulty.medium', isSelected: false, level: 2, estimatedTime: 2000 }, // Tahmini 2 saniyede
+        'hard': { removals: 56, labelKey: 'difficulty.hard', isSelected: false, level: 3, estimatedTime: 3000 }, // Tahmini 3 saniyede
+        'expert': { removals: 59, labelKey: 'difficulty.expert', isSelected: false, level: 4, estimatedTime: 4000 }, // Tahmini 4 saniyede
+        'impossible': { removals: 64, labelKey: 'difficulty.impossible', isSelected: false, level: 5, estimatedTime: 5000 } // Tahmini 5 saniyede
     });
 
     // --- YARDIMCI FONKSİYONLAR ---
@@ -130,64 +131,76 @@ function App() {
         setMessage(t("pdf.creatingMessage"));
         setIsError(false);
         setIsLoading(true);
+        setGenerationProgress({ generated: 0, total: numPages * sudokusPerPage, estimatedTime: 'Calculating...' });
 
         const worker = new Worker(new URL('./sudoku.worker.js', import.meta.url));
 
         worker.onmessage = async (e) => {
-            const generatedPuzzlesForPdf = e.data;
-            try {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                // PDF oluşturmadan önce fontu yüklüyoruz
-                const fontLoaded = await loadPdfFonts(doc);
-                if (!fontLoaded) {
-                    // Eğer font yüklenemezse kullanıcıyı bilgilendir ve işlemi durdur
-                    setMessage(t("error.fontLoadError")); // Bu çeviriyi eklemelisin
+            const data = e.data;
+
+            // YENİ: Gelen mesajın tipini kontrol et
+            if (data.type === 'progress') {
+                // Eğer ilerleme mesajıysa, state'i güncelle ve işlemi bitir.
+                setGenerationProgress(data);
+                return;
+            }
+
+            if (data.type === 'result') {
+                const generatedPuzzlesForPdf = data.puzzles;
+                try {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    // PDF oluşturmadan önce fontu yüklüyoruz
+                    const fontLoaded = await loadPdfFonts(doc);
+                    if (!fontLoaded) {
+                        // Eğer font yüklenemezse kullanıcıyı bilgilendir ve işlemi durdur
+                        setMessage(t("error.fontLoadError")); // Bu çeviriyi eklemelisin
+                        setIsError(true);
+                        setIsLoading(false);
+                        worker.terminate();
+                        return;
+                    }
+
+                    const specialFontLanguages = ['ja', 'zh'];
+
+                    // Eğer mevcut dil, uzman font gerektiren dillerden biriyse, NotoSansJP'yi kullan.
+                    if (specialFontLanguages.includes(i18n.resolvedLanguage)) {
+                        doc.setFont('NotoSansJP');
+                    } else {
+                        // Diğer tüm diller için (Türkçe, İngilizce, Rusça, Almanca vb.)
+                        // evrensel ana fontumuzu kullan.
+                        doc.setFont('NotoSans');
+                    }
+
+                    let sudokuCounter = 0;
+                    for (let page = 0; page < numPages; page++) {
+                        if (page > 0) doc.addPage();
+                        doc.setFontSize(14);
+                        doc.text(t("pdf.pageLabel", { currentPage: page + 1, totalPages: numPages }), 105, 15, { align: 'center' });
+                        const puzzlesForPage = generatedPuzzlesForPdf.slice(sudokuCounter, sudokuCounter + sudokusPerPage);
+                        drawPageLayout(doc, puzzlesForPage, sudokusPerPage, t, fetchDifficultyWithLevel);
+                        sudokuCounter += sudokusPerPage;
+                    }
+
+                    const pdfBlob = doc.output('blob');
+                    const downloadUrl = URL.createObjectURL(pdfBlob);
+                    const link = document.createElement('a');
+                    link.href = downloadUrl;
+                    link.download = 'sudoku.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(downloadUrl);
+                    setMessage(t("pdf.successMessage"));
+                    setIsError(false);
+                } catch (error) {
+                    console.error("PDF oluşturma hatası:", error);
+                    setMessage(t("error.generic"));
                     setIsError(true);
+                } finally {
                     setIsLoading(false);
                     worker.terminate();
-                    return;
                 }
-
-                const specialFontLanguages = ['ja', 'zh'];
-
-                // Eğer mevcut dil, uzman font gerektiren dillerden biriyse, NotoSansJP'yi kullan.
-                if (specialFontLanguages.includes(i18n.resolvedLanguage)) {
-                    doc.setFont('NotoSansJP');
-                } else {
-                    // Diğer tüm diller için (Türkçe, İngilizce, Rusça, Almanca vb.)
-                    // evrensel ana fontumuzu kullan.
-                    doc.setFont('NotoSans');
-                }
-
-                let sudokuCounter = 0;
-                for (let page = 0; page < numPages; page++) {
-                    if (page > 0) doc.addPage();
-                    doc.setFontSize(14);
-                    doc.text(t("pdf.pageLabel", { currentPage: page + 1, totalPages: numPages }), 105, 15, { align: 'center' });
-                    const puzzlesForPage = generatedPuzzlesForPdf.slice(sudokuCounter, sudokuCounter + sudokusPerPage);
-                    drawPageLayout(doc, puzzlesForPage, sudokusPerPage, t, fetchDifficultyWithLevel);
-                    sudokuCounter += sudokusPerPage;
-                }
-
-                const pdfBlob = doc.output('blob');
-                const downloadUrl = URL.createObjectURL(pdfBlob);
-                const link = document.createElement('a');
-                link.href = downloadUrl;
-                link.download = 'sudoku.pdf';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(downloadUrl);
-                setMessage(t("pdf.successMessage"));
-                setIsError(false);
-            } catch (error) {
-                console.error("PDF oluşturma hatası:", error);
-                setMessage(t("error.generic"));
-                setIsError(true);
-            } finally {
-                setIsLoading(false);
-                worker.terminate();
             }
         };
 
@@ -196,6 +209,7 @@ function App() {
             setMessage(t("error.generic"));
             setIsError(true);
             setIsLoading(false);
+            setGenerationProgress(null);
             worker.terminate();
         };
 
@@ -308,6 +322,7 @@ function App() {
                         setSudokusPerPage={setSudokusPerPage}
                         handleCreatePdf={handleCreatePdf}
                         isLoading={isLoading}
+                        generationProgress={generationProgress}
                     />
                 )}
                 {activeTab === 'solver' && (

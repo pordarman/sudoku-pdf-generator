@@ -14,6 +14,7 @@ const Generator = ({
     setSudokusPerPage,
     handleCreatePdf,
     isLoading,
+    generationProgress
 }) => {
     return (
         <div className="generator-container">
@@ -65,6 +66,23 @@ const Generator = ({
                         </div>
                     </div>
                 </div>
+                {isLoading && generationProgress && (
+                        <div className="progress-container">
+                            <p>
+                                {t("generator.generatingStatus", {
+                                    generated: generationProgress.generated, 
+                                    total: generationProgress.total,
+                                    estimatedTime: generationProgress.estimatedTime
+                                })}
+                            </p>
+                            <div className="progress-bar-background">
+                                <div 
+                                    className="progress-bar-foreground" 
+                                    style={{ width: `${(generationProgress.generated / generationProgress.total) * 100}%` }}
+                                ></div>
+                            </div>
+                        </div>
+                    )}
                 <button onClick={handleCreatePdf} disabled={isLoading}>
                     {isLoading ? t("generator.creating") : t("generator.createPdfButton")}
                 </button>

@@ -81,26 +81,67 @@ export const fillGrid = (grid) => {
 };
 
 export const generateSudoku = (removals) => {
-    const grid = createEmptyGrid();
-    fillGrid(grid);
-    const solution = JSON.parse(JSON.stringify(grid));
-    let puzzle = JSON.parse(JSON.stringify(solution));
-    const cells = shuffle(Array.from({ length: 81 }, (_, i) => i));
-    let removedCount = 0;
-    for (const cellIndex of cells) {
-        if (removedCount >= removals) break;
-        const row = Math.floor(cellIndex / 9), col = cellIndex % 9;
-        if (puzzle[row][col] === 0) continue;
-        const temp = puzzle[row][col];
-        puzzle[row][col] = 0;
-        const solutions = findAllSolutions(puzzle, 2);
-        if (solutions.length !== 1) {
-            puzzle[row][col] = temp;
-        } else {
-            removedCount++;
+    let bestPuzzle = null;
+    let bestRemovedCount = -1;
+    let attempts = 0;
+    const maxAttempts = 10; // Sonsuz döngüyü engellemek için bir sınır koyuyoruz.
+
+    // Hedeflenen sayıda hücre silinene kadar veya maksimum deneme sayısına ulaşana kadar döngüye devam et.
+    while (attempts < maxAttempts) {
+        const grid = createEmptyGrid();
+        fillGrid(grid); // Her denemede SIFIRDAN yeni bir dolu tahta oluştur.
+
+        const solution = JSON.parse(JSON.stringify(grid));
+        let puzzle = JSON.parse(JSON.stringify(solution));
+        
+        // Hücreleri karıştırarak rastgele bir silme sırası oluştur.
+        const cells = shuffle(Array.from({ length: 81 }, (_, i) => i));
+        let removedCount = 0;
+
+        for (const cellIndex of cells) {
+            if (removedCount >= removals) break; // Hedefe ulaşıldıysa döngüden çık.
+
+            const row = Math.floor(cellIndex / 9);
+            const col = cellIndex % 9;
+            
+            // Bu hücre zaten boşsa atla (bu döngüde olmaz ama iyi bir kontrol).
+            if (puzzle[row][col] === 0) continue;
+
+            const temp = puzzle[row][col];
+            puzzle[row][col] = 0;
+
+            // Çözümün hala tek olup olmadığını kontrol et.
+            const solutions = findAllSolutions(puzzle, 2);
+            if (solutions.length !== 1) {
+                // Eğer çözüm tek değilse, sildiğin sayıyı geri koy.
+                puzzle[row][col] = temp;
+            } else {
+                // Çözüm hala tek ise, silme işlemini onayla.
+                removedCount++;
+            }
         }
+
+        // Bu denemenin sonunda hedefe ulaştık mı?
+        if (removedCount >= removals) {
+            console.log(`Başarılı! ${removals} hücre ${attempts + 1}. denemede silindi.`);
+            return { puzzle, solution }; // Başarılı bulmacayı döndür ve fonksiyondan çık.
+        }
+
+        // Eğer bu deneme hedefe ulaşamadıysa ama şimdiye kadarki en iyi denemeyse, onu sakla.
+        if (removedCount > bestRemovedCount) {
+            bestRemovedCount = removedCount;
+            bestPuzzle = { puzzle, solution };
+        }
+        
+        attempts++;
     }
-    return { puzzle, solution };
+
+    // Eğer maksimum deneme sayısına ulaşıldıysa ve hala hedef tutturulamadıysa,
+    // en iyi denemeyi bir uyarıyla birlikte döndür.
+    console.warn(`Maksimum deneme sayısına ulaşıldı (${maxAttempts}). 
+    Hedef ${removals} hücreydi, en iyi sonuç ${bestRemovedCount} hücre silinmiş bulmaca oldu.`);
+    
+    return bestPuzzle;
 };
 
 export const validateGrid = (grid) => {
