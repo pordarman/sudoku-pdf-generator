@@ -1,13 +1,13 @@
 {
     "common": {
-        "appTitle": "网页数独",
+        "appTitle": "Sudoku PDF Generator",
         "solveButton": "求解",
         "clearButton": "清除",
         "creating": "正在创建...",
         "searching": "正在搜索...",
         "solution": "求解",
         "toggleTheme": "切换主题",
-        "footerText": "感谢您使用网页数独！❤️"
+        "footerText": "感谢您使用Sudoku PDF Generator！❤️"
     },
     "nav": {
         "generator": "PDF 生成器",
@@ -23,7 +23,7 @@
         "impossible": "不可能"
     },
     "generator": {
-        "title": "数独 PDF 生成器",
+        "title": "数独生成器",
         "difficultyTitle": "选择难度",
         "pageSettingsTitle": "配置页面设置",
         "pageCountLabel": "页数：",

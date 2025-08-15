@@ -1,13 +1,13 @@
 {
     "common": {
-        "appTitle": "ウェブ数独",
+        "appTitle": "Sudoku PDF Generator",
         "solveButton": "解答",
         "clearButton": "クリア",
         "creating": "作成中...",
         "searching": "検索中...",
         "solution": "解答",
         "toggleTheme": "テーマ切替",
-        "footerText": "ウェブ数独をご利用いただきありがとうございます！❤️"
+        "footerText": "Sudoku PDF Generatorをご利用いただきありがとうございます！❤️"
     },
     "nav": {
         "generator": "PDFジェネレーター",
@@ -23,7 +23,7 @@
         "impossible": "不可能"
     },
     "generator": {
-        "title": "数独PDFジェネレーター",
+        "title": "数独ジェネレーター",
         "difficultyTitle": "難易度を選択",
         "pageSettingsTitle": "ページ設定を行う",
         "pageCountLabel": "ページ数:",

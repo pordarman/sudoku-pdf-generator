@@ -1,13 +1,13 @@
 {
     "common": {
-        "appTitle": "Веб-судоку",
+        "appTitle": "Sudoku PDF Generator",
         "solveButton": "Решить",
         "clearButton": "Очистить",
         "creating": "Создание...",
         "searching": "Поиск...",
         "solution": "Решение",
         "toggleTheme": "Сменить тему",
-        "footerText": "Спасибо за использование веб-судоку! ❤️"
+        "footerText": "Спасибо за использование Sudoku PDF Generator! ❤️"
     },
     "nav": {
         "generator": "Генератор PDF",
@@ -23,7 +23,7 @@
         "impossible": "Невозможно"
     },
     "generator": {
-        "title": "Генератор PDF-судоку",
+        "title": "Генератор судоку",
         "difficultyTitle": "Выберите уровень сложности",
         "pageSettingsTitle": "Настроить параметры страницы",
         "pageCountLabel": "Количество страниц:",
