@@ -30,6 +30,7 @@
         "sudokusPerPageLabel": "1ページあたりの数独数:",
         "createPdfButton": "PDFを作成して保存する",
         "creating": "作成中...",
+        "generatingStatus": "PDFを生成中... ({{generated}}/{{total}})\n推定時間: {{estimatedTime}}",
         "one": "1",
         "two": "2",
         "three": "3",

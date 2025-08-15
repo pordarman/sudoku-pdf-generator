@@ -30,6 +30,7 @@
         "sudokusPerPageLabel": "每页数独：",
         "createPdfButton": "创建并保存 PDF",
         "creating": "正在创建...",
+        "generatingStatus": "正在生成 PDF... ({{generated}}/{{total}})\n预计时间: {{estimatedTime}}",
         "one": "1",
         "two": "2",
         "three": "3",

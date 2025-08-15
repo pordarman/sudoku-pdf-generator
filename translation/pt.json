@@ -30,6 +30,7 @@
         "sudokusPerPageLabel": "Sudoku por página:",
         "createPdfButton": "Criar e guardar PDF",
         "criação": "Criar...",
+        "generatingStatus": "A gerar PDF... ({{generated}}/{{total}})\nTempo estimado: {{estimatedTime}}",
         "one": "1",
         "two": "2",
         "três": "3",
