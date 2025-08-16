@@ -2,7 +2,7 @@
 
 A powerful and easy-to-use web application for generating and solving Sudoku puzzles. This tool is designed for Sudoku enthusiasts who want to create custom puzzle sheets for printing or solve challenging puzzles with ease.
 
-**Live Demo:** [https://YOUR_USERNAME.github.io/sudoku-pdf-generator](https://YOUR_USERNAME.github.io/sudoku-pdf-generator)
+**Live Demo:** [https://pordarman.github.io/sudoku-pdf-generator](https://pordarman.github.io/sudoku-pdf-generator)
 
 ---
 
