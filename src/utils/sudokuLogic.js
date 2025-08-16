@@ -1,19 +1,18 @@
-// src/utils/sudokuLogic.js
-// Bu dosya, Sudoku'nun temel mantığını içerir: boş bir tablo oluşturma,
-// bir sayının geçerli olup olmadığını kontrol etme ve çözümleri bulma.
+// This file contains the basic logic for Sudoku: creating an empty board,
+// checking if a number is valid, and finding solutions.
 
 export const createEmptyGrid = () => Array(9).fill(null).map(() => Array(9).fill(0));
 
 export const isValid = (grid, row, col, num) => {
-    // Satırı kontrol et
+    // Check the row
     for (let x = 0; x < 9; x++) {
         if (grid[row][x] === num) return false;
     }
-    // Sütunu kontrol et
+    // Check the column
     for (let x = 0; x < 9; x++) {
         if (grid[x][col] === num) return false;
     }
-    // 3x3'lük kutuyu kontrol et
+    // Check the 3x3 box
     const startRow = row - (row % 3), startCol = col - (col % 3);
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
@@ -26,8 +25,8 @@ export const isValid = (grid, row, col, num) => {
 export const findAllSolutions = (grid, limit = 2000) => {
     const solutions = [];
     const find = (currentGrid) => {
-        // Performans için en fazla limit tane çözüm bulup duruyoruz.
-        // Eğer limit tane çözüm bulunduysa kullanıcıya "limit tane çözüm bulundu ama daha fazla olabilir diyoruz"
+        // For performance, we stop after finding a maximum of 'limit' solutions.
+        // If we found 'limit' solutions, we inform the user that there may be more.
         if (solutions.length >= limit) return;
 
         for (let row = 0; row < 9; row++) {
@@ -37,20 +36,17 @@ export const findAllSolutions = (grid, limit = 2000) => {
                         if (isValid(currentGrid, row, col, num)) {
                             currentGrid[row][col] = num;
                             find(currentGrid);
-                            currentGrid[row][col] = 0; // Geri izleme (Backtracking)
+                            currentGrid[row][col] = 0; // Backtracking
                         }
                     }
                     return;
                 }
             }
         }
-        // Derin bir kopya alarak çözümü kaydet
         solutions.push(JSON.parse(JSON.stringify(currentGrid)));
     };
-    // Fonksiyonu başlat
     find(JSON.parse(JSON.stringify(grid)));
 
-    // Sonuçları karıştırarak ver
     return shuffle(solutions);
 };
 
@@ -84,50 +80,49 @@ export const generateSudoku = (removals) => {
     let bestPuzzle = null;
     let bestRemovedCount = -1;
     let attempts = 0;
-    const maxAttempts = 10; // Sonsuz döngüyü engellemek için bir sınır koyuyoruz.
+    const maxAttempts = 10;
 
-    // Hedeflenen sayıda hücre silinene kadar veya maksimum deneme sayısına ulaşana kadar döngüye devam et.
+    // Continue the loop until the target number of cells is removed or the maximum number of attempts is reached.
     while (attempts < maxAttempts) {
         const grid = createEmptyGrid();
-        fillGrid(grid); // Her denemede SIFIRDAN yeni bir dolu tahta oluştur.
+        fillGrid(grid); // Create a new filled board from scratch for each attempt.
 
         const solution = JSON.parse(JSON.stringify(grid));
         let puzzle = JSON.parse(JSON.stringify(solution));
-        
-        // Hücreleri karıştırarak rastgele bir silme sırası oluştur.
+
+        // Create a random removal order by shuffling the cells.
         const cells = shuffle(Array.from({ length: 81 }, (_, i) => i));
         let removedCount = 0;
 
         for (const cellIndex of cells) {
-            if (removedCount >= removals) break; // Hedefe ulaşıldıysa döngüden çık.
+            if (removedCount >= removals) break; // If the target is reached, exit the loop.
 
             const row = Math.floor(cellIndex / 9);
             const col = cellIndex % 9;
-            
-            // Bu hücre zaten boşsa atla (bu döngüde olmaz ama iyi bir kontrol).
+
+            // If this cell is already empty, skip it (this shouldn't happen in this loop but it's a good check).
             if (puzzle[row][col] === 0) continue;
 
             const temp = puzzle[row][col];
             puzzle[row][col] = 0;
 
-            // Çözümün hala tek olup olmadığını kontrol et.
+            // Check if the solution is still unique.
             const solutions = findAllSolutions(puzzle, 2);
             if (solutions.length !== 1) {
-                // Eğer çözüm tek değilse, sildiğin sayıyı geri koy.
+                // If the solution is not unique, restore the removed number.
                 puzzle[row][col] = temp;
             } else {
-                // Çözüm hala tek ise, silme işlemini onayla.
+                // If the solution is still unique, confirm the removal.
                 removedCount++;
             }
         }
 
-        // Bu denemenin sonunda hedefe ulaştık mı?
+        // Did we reach the target at the end of this attempt?
         if (removedCount >= removals) {
-            console.log(`Başarılı! ${removals} hücre ${attempts + 1}. denemede silindi.`);
-            return { puzzle, solution }; // Başarılı bulmacayı döndür ve fonksiyondan çık.
+            return { puzzle, solution };
         }
 
-        // Eğer bu deneme hedefe ulaşamadıysa ama şimdiye kadarki en iyi denemeyse, onu sakla.
+        // If this attempt didn't reach the target but was the best so far, keep it.
         if (removedCount > bestRemovedCount) {
             bestRemovedCount = removedCount;
             bestPuzzle = { puzzle, solution };
@@ -136,11 +131,12 @@ export const generateSudoku = (removals) => {
         attempts++;
     }
 
-    // Eğer maksimum deneme sayısına ulaşıldıysa ve hala hedef tutturulamadıysa,
-    // en iyi denemeyi bir uyarıyla birlikte döndür.
-    console.warn(`Maksimum deneme sayısına ulaşıldı (${maxAttempts}). 
-    Hedef ${removals} hücreydi, en iyi sonuç ${bestRemovedCount} hücre silinmiş bulmaca oldu.`);
-    
+    // If the maximum number of attempts has been reached and the target has still not been met,
+    // return the best attempt with a warning.
+    if (bestRemovedCount < removals) {
+        console.warn(`Maximum number of attempts reached (${maxAttempts}). Target was ${removals} cells, best result is a puzzle with ${bestRemovedCount} cells removed.`);
+    }
+
     return bestPuzzle;
 };
 
@@ -150,12 +146,12 @@ export const validateGrid = (grid) => {
     // Helper function to add coordinates to the set
     const addInvalid = (r, c) => invalidCells.add(`${r}-${c}`);
 
-    // 1. Satırları ve Sütunları kontrol et
+    // 1. Check rows and columns
     for (let i = 0; i < 9; i++) {
         const rowMap = new Map();
         const colMap = new Map();
         for (let j = 0; j < 9; j++) {
-            // Satır kontrolü
+            // Row check
             const rowCell = grid[i][j];
             if (rowCell !== 0) {
                 if (rowMap.has(rowCell)) {
@@ -164,7 +160,7 @@ export const validateGrid = (grid) => {
                 }
                 rowMap.set(rowCell, j);
             }
-            // Sütun kontrolü
+            // Column check
             const colCell = grid[j][i];
             if (colCell !== 0) {
                 if (colMap.has(colCell)) {
@@ -176,7 +172,7 @@ export const validateGrid = (grid) => {
         }
     }
 
-    // 2. 3x3'lük Kutuları kontrol et
+    // 2. Check 3x3 boxes
     for (let boxRow = 0; boxRow < 9; boxRow += 3) {
         for (let boxCol = 0; boxCol < 9; boxCol += 3) {
             const boxMap = new Map();
@@ -198,7 +194,7 @@ export const validateGrid = (grid) => {
         }
     }
 
-    // Set'i {row, col} objelerinden oluşan bir array'e dönüştür
+    // Convert the Set to an array of {row, col} objects
     return Array.from(invalidCells).map(coord => {
         const [row, col] = coord.split('-').map(Number);
         return { row, col };

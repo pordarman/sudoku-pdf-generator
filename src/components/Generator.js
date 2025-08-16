@@ -1,8 +1,5 @@
-// src/components/Generator.js
-// Bu component, "PDF Oluşturucu" sekmesinin arayüzünü içerir.
-// Zorluk seçimi, sayfa ayarları ve PDF oluşturma butonu burada yer alır.
-
-import React from 'react';
+// This component contains the interface for the "PDF Generator" tab.
+// Difficulty selection, page settings, and the PDF creation button are included here.
 
 const Generator = ({
     t,

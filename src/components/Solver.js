@@ -1,8 +1,6 @@
-// src/components/Solver.js
-// Bu component, "Sudoku Çözücü" sekmesinin arayüzünü içerir.
-// Sudoku tablosu, "Çöz" ve "Temizle" butonları burada yer alır.
+// This component contains the interface for the "Sudoku Solver" tab.
+// The Sudoku grid, "Solve" and "Clear" buttons are included here.
 
-import React from 'react';
 import SudokuGrid from './SudokuGrid';
 
 const Solver = ({

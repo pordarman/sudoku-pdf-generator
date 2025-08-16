@@ -1,14 +1,11 @@
-// src/components/SudokuGrid.js
-// Bu component, 9x9'luk Sudoku tablosunu (grid) ekrana çizer.
-// Hem çözücüde hem de ileride bulmaca gösteriminde kullanılabilir.
-
-import React from 'react';
+// This component draws the 9x9 Sudoku grid on the screen.
+// It can be used in both the solver and the future puzzle display.
 
 const SudokuGrid = ({ grid, initialPuzzle, onCellChange, invalidCells = [] }) => {
-    // Hücredeki değer değiştiğinde tetiklenir.
+    // Triggered when the value in a cell changes.
     const handleChange = (e, row, col) => {
         const value = e.target.value;
-        // Sadece 1-9 arası rakamlara veya boş değere izin ver.
+        // Only allow numbers 1-9 or empty value.
         if (/^[1-9]$/.test(value) || value === '') {
             onCellChange(row, col, value === '' ? 0 : parseInt(value, 10));
         }
@@ -19,16 +16,17 @@ const SudokuGrid = ({ grid, initialPuzzle, onCellChange, invalidCells = [] }) =>
             {grid.map((row, rowIndex) => (
                 <div key={rowIndex} className="sudoku-row">
                     {row.map((cell, colIndex) => {
-                        // Eğer bu hücre, bulmacanın en başında dolu geldiyse, değiştirilemez yap.
+                        // If this cell was filled in the initial puzzle, make it uneditable.
                         const isGiven = initialPuzzle && initialPuzzle[rowIndex][colIndex] !== 0;
 
-                        // Bu hücrenin hatalı olup olmadığını kontrol et
+                        // Check if this cell is invalid
                         const isInvalid = invalidCells.some(cell => cell.row === rowIndex && cell.col === colIndex);
 
                         let cellClass = 'sudoku-cell';
                         if (isGiven) cellClass += ' given';
                         if (isInvalid) cellClass += ' invalid';
-                        // 3x3'lük kutuları belirginleştirmek için kalın kenarlıklar ekle.
+                        
+                        // Add thick borders to highlight 3x3 boxes.
                         if (rowIndex % 3 === 2 && rowIndex !== 8) cellClass += ' border-bottom';
                         if (colIndex % 3 === 2 && colIndex !== 8) cellClass += ' border-right';
                         

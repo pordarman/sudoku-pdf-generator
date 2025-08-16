@@ -8,7 +8,6 @@ function numberToTime(estimatedTime) {
 }
 
 self.onmessage = (e) => {
-    console.log('Worker: Mesaj alındı', e.data);
     const { totalSudokus, chosenDifficulties, difficultySettings } = e.data;
 
     const generatedPuzzles = [];
@@ -27,6 +26,13 @@ self.onmessage = (e) => {
         return sum + (count * difficulty.estimatedTime);
     }, 0);
 
+    self.postMessage({
+        type: 'progress',
+        generated: 0,
+        total: totalSudokus,
+        estimatedTime: numberToTime(estimatedTime)
+    });
+
     for (let d = 0; d < chosenDifficulties.length; d++) {
         const difficultyKey = chosenDifficulties[d];
         const difficulty = difficultySettings[difficultyKey];
@@ -42,7 +48,7 @@ self.onmessage = (e) => {
 
             estimatedTime -= difficulty.estimatedTime;
 
-            // YENİ: Her bir bulmaca üretildikten sonra ilerleme mesajı gönder.
+            // Post the message when a puzzle is generated
             self.postMessage({
                 type: 'progress',
                 generated: generatedPuzzles.length,
@@ -52,9 +58,6 @@ self.onmessage = (e) => {
         }
     }
 
-    // İş bittiğinde, oluşturulan bulmacaları ana thread'e geri gönder.
-    console.log('Worker: İşlem tamamlandı, sonuç gönderiliyor.');
-    // YENİ: İş bittiğinde, sonuçları farklı bir tipte gönder.
     self.postMessage({
         type: 'result',
         puzzles: generatedPuzzles

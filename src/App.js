@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react';
 import "./App.css";
 import { useTranslation } from 'react-i18next';
 
-// Yeni oluşturduğumuz modülleri içeri aktarıyoruz
-import { createEmptyGrid, findAllSolutions, validateGrid } from './utils/sudokuLogic';
+import { createEmptyGrid, validateGrid } from './utils/sudokuLogic';
 import { drawPageLayout } from './utils/pdfUtils';
 import Generator from './components/Generator';
 import Solver from './components/Solver';
 
-const MAX_SOLUTIONS = 10000;
+const MAX_SOLUTIONS = 100;
 
-// jsPDF kütüphanesini asenkron olarak yükleyen fonksiyon
+// A function that loads the jsPDF library asynchronously
 const loadJsPdf = () => new Promise((resolve, reject) => {
     if (window.jspdf) return resolve();
     const script = document.createElement('script');
@@ -20,16 +19,15 @@ const loadJsPdf = () => new Promise((resolve, reject) => {
     document.body.appendChild(script);
 });
 
-// PDF için gerekli tüm fontları yükleyen fonksiyon
+// A function that loads all the fonts required for the PDF
 const loadPdfFonts = async (doc) => {
-    // Yüklenecek fontları bir dizi içinde tanımlıyoruz
     const fonts = [
         { path: '/sudoku-pdf-generator/fonts/NotoSans-Regular.ttf', name: 'NotoSans' }, // Ana, evrensel font
         { path: '/sudoku-pdf-generator/fonts/NotoSansJP-Regular.ttf', name: 'NotoSansJP' } // CJK dilleri için uzman font
     ];
 
     try {
-        // Promise.all ile tüm fontları paralel olarak çekiyoruz, bu daha hızlıdır.
+        // Load all fonts in parallel
         await Promise.all(fonts.map(async (font) => {
             const response = await fetch(font.path);
             if (!response.ok) throw new Error(`${font.path} yüklenemedi`);
@@ -46,13 +44,15 @@ const loadPdfFonts = async (doc) => {
             doc.addFont(font.path.split('/').pop(), font.name, 'normal');
         }));
 
-        console.log("Tüm PDF fontları başarıyla yüklendi.");
         return true;
     } catch (error) {
-        console.error("Font yüklenirken hata oluştu:", error);
+        console.error("An error occurred:", error);
         return false;
     }
 };
+
+let sudokuWorker;
+let findAllSolutionsWorker;
 
 function App() {
     const { t, i18n } = useTranslation();
@@ -72,7 +72,8 @@ function App() {
     const handleLanguageChange = (language) => {
         i18n.changeLanguage(language);
     };
-    // --- STATE YÖNETİMİ ---
+
+    // --- STATE MANAGEMENT ---
     const [activeTab, setActiveTab] = useState('generator');
     const [message, setMessage] = useState('');
     const [isError, setIsError] = useState(false);
@@ -80,40 +81,40 @@ function App() {
     const [theme, setTheme] = useState('light');
     const [generationProgress, setGenerationProgress] = useState(null);
 
-    // Çözücü için state'ler
+    // States for Sudoku grid and solutions
     const [grid, setGrid] = useState(createEmptyGrid());
     const [initialGrid, setInitialGrid] = useState(null);
     const [allSolutions, setAllSolutions] = useState([]);
     const [selectedSolutionIndex, setSelectedSolutionIndex] = useState(0);
     const [invalidCells, setInvalidCells] = useState([]);
 
-    // Oluşturucu için state'ler
+    // States for PDF generator
     const [numPages, setNumPages] = useState(1);
     const [sudokusPerPage, setSudokusPerPage] = useState(1);
     const [selectedDifficulties, setSelectedDifficulties] = useState({
-        'child': { removals: 35, labelKey: 'difficulty.child', isSelected: true, level: 0, estimatedTime: 1000 }, // Tahmini 1 saniyede
-        'easy': { removals: 42, labelKey: 'difficulty.easy', isSelected: true, level: 1, estimatedTime: 1500 }, // Tahmini 1.5 saniyede
-        'medium': { removals: 49, labelKey: 'difficulty.medium', isSelected: false, level: 2, estimatedTime: 2000 }, // Tahmini 2 saniyede
-        'hard': { removals: 56, labelKey: 'difficulty.hard', isSelected: false, level: 3, estimatedTime: 3000 }, // Tahmini 3 saniyede
-        'expert': { removals: 59, labelKey: 'difficulty.expert', isSelected: false, level: 4, estimatedTime: 4000 }, // Tahmini 4 saniyede
-        'impossible': { removals: 64, labelKey: 'difficulty.impossible', isSelected: false, level: 5, estimatedTime: 5000 } // Tahmini 5 saniyede
+        'child': { removals: 35, labelKey: 'difficulty.child', isSelected: true, level: 0, estimatedTime: 1000 }, // About 1 second
+        'easy': { removals: 42, labelKey: 'difficulty.easy', isSelected: true, level: 1, estimatedTime: 1500 }, // About 1.5 seconds
+        'medium': { removals: 49, labelKey: 'difficulty.medium', isSelected: false, level: 2, estimatedTime: 2000 }, // About 2 seconds
+        'hard': { removals: 56, labelKey: 'difficulty.hard', isSelected: false, level: 3, estimatedTime: 3000 }, // About 3 seconds
+        'expert': { removals: 59, labelKey: 'difficulty.expert', isSelected: false, level: 4, estimatedTime: 4000 }, // About 4 seconds
+        'impossible': { removals: 64, labelKey: 'difficulty.impossible', isSelected: false, level: 5, estimatedTime: 5000 } // About 5 seconds
     });
 
-    // --- YARDIMCI FONKSİYONLAR ---
+    // --- HELPER FUNCTIONS ---
     const fetchDifficultyWithLevel = (level) => {
         return Object.values(selectedDifficulties).find(difficulty => difficulty.level === level);
     };
 
-    // Uygulama ilk yüklendiğinde jsPDF'i yükle
+    // Load jsPDF when the application first loads
     useEffect(() => {
         (async () => {
             await loadJsPdf();
         })();
     }, []);
 
-    // --- EVENT HANDLERS (OLAY YÖNETİCİLERİ) ---
+    // --- EVENT HANDLERS ---
 
-    // PDF Oluşturucu için fonksiyonlar
+    // PDF Generator functions
     const handleDifficultyChange = (difficulty) => {
         setSelectedDifficulties(prev => ({
             ...prev,
@@ -133,14 +134,14 @@ function App() {
         setIsLoading(true);
         setGenerationProgress({ generated: 0, total: numPages * sudokusPerPage, estimatedTime: 'Calculating...' });
 
-        const worker = new Worker(new URL('./sudoku.worker.js', import.meta.url));
+        sudokuWorker = new Worker(new URL('./sudoku.worker.js', import.meta.url));
 
-        worker.onmessage = async (e) => {
+        sudokuWorker.onmessage = async (e) => {
             const data = e.data;
 
-            // YENİ: Gelen mesajın tipini kontrol et
+            // Check the type of the incoming message
             if (data.type === 'progress') {
-                // Eğer ilerleme mesajıysa, state'i güncelle ve işlemi bitir.
+                // If it's a progress message, update the state and finish the process.
                 setGenerationProgress(data);
                 return;
             }
@@ -150,25 +151,29 @@ function App() {
                 try {
                     const { jsPDF } = window.jspdf;
                     const doc = new jsPDF();
-                    // PDF oluşturmadan önce fontu yüklüyoruz
+
+                    // Load the font before creating the PDF
                     const fontLoaded = await loadPdfFonts(doc);
                     if (!fontLoaded) {
-                        // Eğer font yüklenemezse kullanıcıyı bilgilendir ve işlemi durdur
-                        setMessage(t("error.fontLoadError")); // Bu çeviriyi eklemelisin
+                        setMessage(t("error.fontLoadError"));
                         setIsError(true);
                         setIsLoading(false);
-                        worker.terminate();
+
+                        setTimeout(() => {
+                            sudokuWorker.terminate();
+                            sudokuWorker = null;
+                        }, 100);
                         return;
                     }
 
                     const specialFontLanguages = ['ja', 'zh'];
 
-                    // Eğer mevcut dil, uzman font gerektiren dillerden biriyse, NotoSansJP'yi kullan.
+                    // If the current language is one that requires a special font, use NotoSansJP.
                     if (specialFontLanguages.includes(i18n.resolvedLanguage)) {
                         doc.setFont('NotoSansJP');
                     } else {
-                        // Diğer tüm diller için (Türkçe, İngilizce, Rusça, Almanca vb.)
-                        // evrensel ana fontumuzu kullan.
+                        // For all other languages (Turkish, English, Russian, German, etc.)
+                        // use our universal main font.
                         doc.setFont('NotoSans');
                     }
 
@@ -182,92 +187,116 @@ function App() {
                         sudokuCounter += sudokusPerPage;
                     }
 
+                    // Download the PDF
                     const pdfBlob = doc.output('blob');
-                    const downloadUrl = URL.createObjectURL(pdfBlob);
+                    const pdfUrl = URL.createObjectURL(pdfBlob);
                     const link = document.createElement('a');
-                    link.href = downloadUrl;
+                    link.href = pdfUrl;
                     link.download = 'sudoku.pdf';
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
-                    URL.revokeObjectURL(downloadUrl);
+                    URL.revokeObjectURL(pdfUrl);
+
                     setMessage(t("pdf.successMessage"));
                     setIsError(false);
                 } catch (error) {
-                    console.error("PDF oluşturma hatası:", error);
+                    console.error("PDF error:", error);
                     setMessage(t("error.generic"));
                     setIsError(true);
                 } finally {
                     setIsLoading(false);
-                    worker.terminate();
+
+                    setTimeout(() => {
+                        sudokuWorker.terminate();
+                        sudokuWorker = null;
+                    }, 100);
                 }
             }
         };
 
-        worker.onerror = (error) => {
-            console.error('Web Worker hatası:', error);
+        sudokuWorker.onerror = (error) => {
+            console.error('Web Worker error:', error);
             setMessage(t("error.generic"));
             setIsError(true);
             setIsLoading(false);
             setGenerationProgress(null);
-            worker.terminate();
+
+            setTimeout(() => {
+                sudokuWorker.terminate();
+                sudokuWorker = null;
+            }, 100);
         };
 
         const totalSudokus = numPages * sudokusPerPage;
-        worker.postMessage({
+        sudokuWorker.postMessage({
             totalSudokus,
             chosenDifficulties,
             difficultySettings: selectedDifficulties
         });
     };
 
-    // Sudoku Çözücü için fonksiyonlar
+    // Sudoku Solver functions
     const handleCellChange = (row, col, value) => {
         const newGrid = JSON.parse(JSON.stringify(grid));
         newGrid[row][col] = value;
         setGrid(newGrid);
 
-        // Her değişiklikten sonra tüm tabloyu kontrol et ve hatalı hücreleri state'e ata
+        // Check for conflicts after each change
         const conflicts = validateGrid(newGrid);
         setInvalidCells(conflicts);
     };
 
     const handleSolve = () => {
-        // Çöz butonuna basıldığında son bir kez daha kontrol et
+        // Check for conflicts one last time when the solve button is pressed
         const conflicts = validateGrid(grid);
         setInvalidCells(conflicts);
 
         if (conflicts.length > 0) {
-            setMessage(t("solver.invalidGridError")); // Bu çeviriyi eklemeyi unutma!
+            setMessage(t("solver.invalidGridError"));
             setIsError(true);
-            return; // Hata varsa çözme işlemini başlatma
+            return;
         }
 
         setMessage(t("solver.searchingMessage"));
         setIsLoading(true);
         setTimeout(() => {
-            const solutions = findAllSolutions(grid, MAX_SOLUTIONS);
-            setAllSolutions(solutions);
-            setInitialGrid(JSON.parse(JSON.stringify(grid)));
+            findAllSolutionsWorker = new Worker(new URL('./findAllSolutions.worker.js', import.meta.url));
+            findAllSolutionsWorker.onmessage = (e) => {
+                const { solutions } = e.data;
+                setAllSolutions(solutions);
+                setInitialGrid(JSON.parse(JSON.stringify(grid)));
+                setIsLoading(false);
 
-            setIsLoading(false);
+                if (solutions.length === 0) {
+                    setMessage(t("solver.noSolutionError"));
+                    setIsError(true);
+                    return;
+                }
 
-            if (solutions.length === 0) {
-                setMessage(t("solver.noSolutionError"));
+                setSelectedSolutionIndex(0);
+                setGrid(solutions[0]);
+                setIsError(false);
+
+                if (solutions.length === 1) {
+                    setMessage(t("solver.solveSuccess"));
+                } else if (solutions.length === MAX_SOLUTIONS) {
+                    setMessage(t("solver.multipleSolutionsFoundMaybeTooMany", { count: solutions.length }));
+                } else {
+                    setMessage(t("solver.multipleSolutionsFound", { count: solutions.length }));
+                }
+            };
+            findAllSolutionsWorker.onerror = (error) => {
+                console.error('Web Worker error:', error);
+                setMessage(t("error.generic"));
                 setIsError(true);
-                return;
-            }
-            setSelectedSolutionIndex(0);
-            setGrid(solutions[0]);
-            setIsError(false);
-
-            if (solutions.length === 1) {
-                setMessage(t("solver.solveSuccess"));
-            } else if (solutions.length === MAX_SOLUTIONS) {
-                setMessage(t("solver.multipleSolutionsFoundMaybeTooMany", { count: solutions.length }));
-            } else {
-                setMessage(t("solver.multipleSolutionsFound", { count: solutions.length }));
-            }
+                setIsLoading(false);
+            };
+            findAllSolutionsWorker.postMessage({
+                puzzle: grid,
+                maxSolutions: MAX_SOLUTIONS
+            });
+            findAllSolutionsWorker = null;
         }, 50);
     };
 
@@ -284,6 +313,21 @@ function App() {
         setAllSolutions([]);
         setSelectedSolutionIndex(0);
         setInvalidCells([]);
+        setIsLoading(false);
+
+        // If the worker is running, stop it
+        if (sudokuWorker) {
+            setTimeout(() => {
+                sudokuWorker.terminate();
+                sudokuWorker = null;
+            }, 100);
+        }
+        if (findAllSolutionsWorker) {
+            setTimeout(() => {
+                findAllSolutionsWorker.terminate();
+                findAllSolutionsWorker = null;
+            }, 100);
+        }
     };
 
     const toggleTheme = () => {

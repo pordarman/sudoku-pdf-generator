@@ -1,26 +1,22 @@
-// src/utils/pdfUtils.js
-// Bu dosya, jsPDF kütüphanesini kullanarak PDF üzerine Sudoku bulmacalarını
-// ve diğer bilgileri çizen fonksiyonları içerir.
+// This file contains functions for drawing Sudoku puzzles and other information on a PDF using the jsPDF library.
 
 export const toTitleCase = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
 export const drawSudokuOnPdf = (doc, grid, difficulty, startX, startY, size, t) => {
-    const labelFontSize = size * 0.065; // Etiket font boyutu büyütüldü
+    const labelFontSize = size * 0.1;
     doc.setFontSize(labelFontSize);
     doc.setTextColor(100);
 
-    // ID'yi sol üste yazdır
-    doc.setFontSize(labelFontSize * 1.62); // Yazı boyutunu büyüt
-
-    // Zorluğu sağ üste yazdır
+    // Write the difficulty in the top right corner
     doc.text(t("pdf.difficultyLabel", { difficulty }), startX + size, startY - 2, { align: 'right' });
 
     const cellSize = size / 9;
     doc.setDrawColor(0);
     doc.setTextColor(0);
-    // Sudoku içindeki sayıların font boyutu büyütüldü
+
+    // Increase the font size for the numbers inside the Sudoku
     doc.setFontSize(size * 0.15);
 
     for (let i = 0; i <= 9; i++) {
@@ -45,8 +41,8 @@ export const drawSudokuOnPdf = (doc, grid, difficulty, startX, startY, size, t) 
 export const drawPageLayout = (doc, puzzles, layout, t, fetchDifficultyWithLevel) => {
     const MARGIN = 15;
     const A4_WIDTH = 210;
-    const HEADER_SPACE = 30; // Üst boşluk arttırıldı
-    const TOP_TEXT_OFFSET = 5; // ID/Zorluk yazısı için ek boşluk
+    const HEADER_SPACE = 30; // Increased top margin
+    const TOP_TEXT_OFFSET = 5; // Extra space for Difficulty text
 
     const drawPuzzle = (puzzleData, x, y, size) => {
         const difficultyLabel = toTitleCase(t(fetchDifficultyWithLevel(puzzleData.difficulty).labelKey));
@@ -62,10 +58,10 @@ export const drawPageLayout = (doc, puzzles, layout, t, fetchDifficultyWithLevel
         const size = 85;
         const x = (A4_WIDTH - size) / 2;
         drawPuzzle(puzzles[0], x, HEADER_SPACE, size);
-        if (puzzles[1]) drawPuzzle(puzzles[1], x, HEADER_SPACE + size + 25, size); // Aradaki boşluk arttırıldı
+        if (puzzles[1]) drawPuzzle(puzzles[1], x, HEADER_SPACE + size + 25, size); // Increased gap
     } else if (layout === 3) {
         const size = 70;
-        const gap = 18; // Aradaki boşluk arttırıldı
+        const gap = 18; // Increased gap
         const y1 = HEADER_SPACE;
         const y2 = y1 + size + gap;
         const y3 = y2 + size + gap;
@@ -75,7 +71,7 @@ export const drawPageLayout = (doc, puzzles, layout, t, fetchDifficultyWithLevel
         if (puzzles[2]) drawPuzzle(puzzles[2], xCenter, y3, size);
     } else if (layout === 4) {
         const size = 75;
-        const gap = 20; // Aradaki boşluk arttırıldı
+        const gap = 20; // Increased gap
         const x1 = MARGIN + (A4_WIDTH / 2 - MARGIN - size) / 2;
         const x2 = A4_WIDTH / 2 + (A4_WIDTH / 2 - MARGIN - size) / 2;
         const y1 = HEADER_SPACE;
@@ -94,19 +90,19 @@ export const drawPageLayout = (doc, puzzles, layout, t, fetchDifficultyWithLevel
         const y3 = y2 + size + gap;
         const xCenter = (A4_WIDTH - size) / 2;
 
-        // Üstteki iki sudoku
+        // Top row Sudoku
         if (puzzles[0]) drawPuzzle(puzzles[0], x1, y1, size);
         if (puzzles[1]) drawPuzzle(puzzles[1], x2, y1, size);
 
-        // Ortadaki sudoku
+        // Middle Sudoku
         if (puzzles[2]) drawPuzzle(puzzles[2], xCenter, y2, size);
 
-        // Alttaki iki sudoku
+        // Bottom two Sudokus
         if (puzzles[3]) drawPuzzle(puzzles[3], x1, y3, size);
         if (puzzles[4]) drawPuzzle(puzzles[4], x2, y3, size);
     } else if (layout === 6) {
         const size = 70;
-        const gap = 18; // Aradaki boşluk arttırıldı
+        const gap = 18; // Increased gap
         const x1 = MARGIN + (A4_WIDTH / 2 - MARGIN - size) / 2;
         const x2 = A4_WIDTH / 2 + (A4_WIDTH / 2 - MARGIN - size) / 2;
         const y1 = HEADER_SPACE;
