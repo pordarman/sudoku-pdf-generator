@@ -22,8 +22,9 @@ const loadJsPdf = () => new Promise((resolve, reject) => {
 // A function that loads all the fonts required for the PDF
 const loadPdfFonts = async (doc) => {
     const fonts = [
+        { path: '/sudoku-pdf-generator/fonts/TiroDevanagariHindi-Regular.ttf', name: 'TiroDevanagariHindi' }, // Hindistan
         { path: '/sudoku-pdf-generator/fonts/NotoSans-Regular.ttf', name: 'NotoSans' }, // Ana, evrensel font
-        { path: '/sudoku-pdf-generator/fonts/NotoSansJP-Regular.ttf', name: 'NotoSansJP' } // CJK dilleri için uzman font
+        { path: '/sudoku-pdf-generator/fonts/NotoSansJP-Regular.ttf', name: 'NotoSansJP' } // Japonca, Çince
     ];
 
     try {
@@ -67,7 +68,8 @@ function App() {
         { code: 'zh', label: '🇨🇳 中文' },
         { code: 'pt', label: '🇵🇹 Português' },
         { code: 'ru', label: '🇷🇺 Русский' },
-        { code: 'ja', label: '🇯🇵 日本語' }
+        { code: 'ja', label: '🇯🇵 日本語' },
+        { code: 'hi', label: '🇮🇳 हिंदी' }
     ];
     const handleLanguageChange = (language) => {
         i18n.changeLanguage(language);
@@ -92,11 +94,11 @@ function App() {
     const [numPages, setNumPages] = useState(1);
     const [sudokusPerPage, setSudokusPerPage] = useState(1);
     const [selectedDifficulties, setSelectedDifficulties] = useState({
-        'child': { removals: 35, labelKey: 'difficulty.child', isSelected: true, level: 0, estimatedTime: 1000 }, // About 1 second
-        'easy': { removals: 42, labelKey: 'difficulty.easy', isSelected: true, level: 1, estimatedTime: 1500 }, // About 1.5 seconds
-        'medium': { removals: 49, labelKey: 'difficulty.medium', isSelected: false, level: 2, estimatedTime: 2000 }, // About 2 seconds
-        'hard': { removals: 56, labelKey: 'difficulty.hard', isSelected: false, level: 3, estimatedTime: 3000 }, // About 3 seconds
-        'expert': { removals: 59, labelKey: 'difficulty.expert', isSelected: false, level: 4, estimatedTime: 4000 }, // About 4 seconds
+        'child': { removals: 35, labelKey: 'difficulty.child', isSelected: true, level: 0, estimatedTime: 100 }, // About 0.1 second
+        'easy': { removals: 42, labelKey: 'difficulty.easy', isSelected: true, level: 1, estimatedTime: 200 }, // About 0.2 second
+        'medium': { removals: 49, labelKey: 'difficulty.medium', isSelected: false, level: 2, estimatedTime: 500 }, // About 0.5 second
+        'hard': { removals: 56, labelKey: 'difficulty.hard', isSelected: false, level: 3, estimatedTime: 1000 }, // About 1 second
+        'expert': { removals: 59, labelKey: 'difficulty.expert', isSelected: false, level: 4, estimatedTime: 3000 }, // About 3 seconds
         'impossible': { removals: 64, labelKey: 'difficulty.impossible', isSelected: false, level: 5, estimatedTime: 5000 } // About 5 seconds
     });
 
@@ -166,15 +168,21 @@ function App() {
                         return;
                     }
 
-                    const specialFontLanguages = ['ja', 'zh'];
+                    switch (i18n.resolvedLanguage) {
+                        // If the current language is one that requires a special font, use TiroDevanagariHindi.
+                        case 'hi':
+                            doc.setFont('TiroDevanagariHindi');
+                            break;
 
-                    // If the current language is one that requires a special font, use NotoSansJP.
-                    if (specialFontLanguages.includes(i18n.resolvedLanguage)) {
-                        doc.setFont('NotoSansJP');
-                    } else {
-                        // For all other languages (Turkish, English, Russian, German, etc.)
-                        // use our universal main font.
-                        doc.setFont('NotoSans');
+                        // If the current language is one that requires a special font, use NotoSansJP.
+                        case 'ja':
+                        case 'zh':
+                            doc.setFont('NotoSansJP');
+                            break;
+
+                        default:
+                            doc.setFont('NotoSans');
+                            break;
                     }
 
                     let sudokuCounter = 0;
@@ -183,7 +191,7 @@ function App() {
                         doc.setFontSize(14);
                         doc.text(t("pdf.pageLabel", { currentPage: page + 1, totalPages: numPages }), 105, 15, { align: 'center' });
                         const puzzlesForPage = generatedPuzzlesForPdf.slice(sudokuCounter, sudokuCounter + sudokusPerPage);
-                        drawPageLayout(doc, puzzlesForPage, sudokusPerPage, t, fetchDifficultyWithLevel);
+                        drawPageLayout(doc, puzzlesForPage, sudokusPerPage, t, fetchDifficultyWithLevel, i18n.resolvedLanguage);
                         sudokuCounter += sudokusPerPage;
                     }
 

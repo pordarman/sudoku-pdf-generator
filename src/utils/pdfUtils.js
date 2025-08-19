@@ -1,7 +1,9 @@
 // This file contains functions for drawing Sudoku puzzles and other information on a PDF using the jsPDF library.
 
-export const toTitleCase = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+export const toTitleCase = (str, lang) => {
+    return str.split(" ").map(word => {
+        return word.charAt(0).toLocaleUpperCase(lang) + word.slice(1).toLocaleLowerCase(lang);
+    }).join(" ");
 };
 
 export const drawSudokuOnPdf = (doc, grid, difficulty, startX, startY, size, t) => {
@@ -38,14 +40,14 @@ export const drawSudokuOnPdf = (doc, grid, difficulty, startX, startY, size, t) 
     }
 };
 
-export const drawPageLayout = (doc, puzzles, layout, t, fetchDifficultyWithLevel) => {
+export const drawPageLayout = (doc, puzzles, layout, t, fetchDifficultyWithLevel, lang) => {
     const MARGIN = 15;
     const A4_WIDTH = 210;
     const HEADER_SPACE = 30; // Increased top margin
     const TOP_TEXT_OFFSET = 5; // Extra space for Difficulty text
 
     const drawPuzzle = (puzzleData, x, y, size) => {
-        const difficultyLabel = toTitleCase(t(fetchDifficultyWithLevel(puzzleData.difficulty).labelKey));
+        const difficultyLabel = toTitleCase(t(fetchDifficultyWithLevel(puzzleData.difficulty).labelKey), lang);
         drawSudokuOnPdf(doc, puzzleData.puzzle, difficultyLabel, x, y + TOP_TEXT_OFFSET, size, t);
     };
 
