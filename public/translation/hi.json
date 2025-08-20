@@ -1,0 +1,66 @@
+{
+    "common": {
+        "appTitle": "Sudoku PDF Generator",
+        "solveButton": "हल करें",
+        "clearButton": "साफ़ करें",
+        "creating": "बना रहा है...",
+        "searching": "खोज रहा है...",
+        "solution": "समाधान",
+        "toggleTheme": "टॉगल थीम",
+        "footerText": "Sudoku PDF Generator इस्तेमाल करने के लिए धन्यवाद! ❤️"
+    },
+    "nav": {
+        "generator": "पीडीएफ जेनरेटर",
+        "solver": "सॉल्वर"
+    },
+    "difficulty": {
+        "label": "कठिनाई",
+        "child": "बच्चा",
+        "easy": "आसान",
+        "medium": "मध्यम",
+        "hard": "कठिन",
+        "expert": "विशेषज्ञ",
+        "impossible": "असंभव"
+    },
+    "generator": {
+        "title": "सुडोकू जनरेटर",
+        "difficultyTitle": "कठिनाई स्तर चुनें",
+        "pageSettingsTitle": "पृष्ठ सेटिंग कॉन्फ़िगर करें",
+        "pageCountLabel": "पृष्ठों की संख्या:",
+        "sudokusPerPageLabel": "प्रति पृष्ठ सुडोकू:",
+        "createPdfButton": "पीडीएफ बनाएँ और सहेजें",
+        "creating": "बनाया जा रहा है...",
+        "generatingStatus": "पीडीएफ जनरेट हो रहा है... ({{generated}}/{{total}})\nअनुमानित समय: {{estimatedTime}}",
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6"
+    },
+    "solver": {
+        "title": "सुडोकू सॉल्वर",
+        "description": "नीचे दी गई तालिका में वह सुडोकू दर्ज करें जिसे आप हल करना चाहते हैं और 'हल करें' बटन पर क्लिक करें।",
+        "invalidGridError": "दर्ज किया गया सुडोकू अमान्य है। कृपया त्रुटियाँ ठीक करें और पुनः प्रयास करें।",
+        "searchingMessage": "समाधान खोज रहा हूँ...",
+        "noSolutionError": "इस पहेली का कोई हल नहीं है।",
+        "multipleSolutionsFound": "इस पहेली के लिए {{count}} विभिन्न समाधान मिले।",
+        "multipleSolutionsFoundMaybeTooMany": "{{count}} समाधान मिले, लेकिन और भी हो सकते हैं।",
+        "solveSuccess": "पहेली सफलतापूर्वक हल हो गई!",
+        "solutionsLabel": "उपलब्ध समाधान",
+        "solutionLabel": "समाधान {{number}}",
+        "solveButton": "हल करें",
+        "clearButton": "साफ़ करें"
+    },
+    "pdf": {
+        "difficultyLabel": "कठिनाई: {{difficulty}}",
+        "pageLabel": "पृष्ठ {{currentPage}}/{{totalPages}}",
+        "creatingMessage": "पीडीएफ बना रहा हूँ, कृपया प्रतीक्षा करें... इसे बनाते समय आप इस पृष्ठ को छोड़ सकते हैं, लेकिन कृपया पृष्ठ को रीफ़्रेश या बंद न करें।",
+        "successMessage": "पीडीएफ सफलतापूर्वक बना और डाउनलोड हो गया!",
+        "noDifficultyError": "पीडीएफ बनाने के लिए कृपया कम से कम एक कठिनाई स्तर चुनें।"
+    },
+    "error": {
+        "generic": "एक त्रुटि हुई। कृपया कंसोल की जाँच करें।",
+        "fontLoadError": "पीडीएफ फ़ॉन्ट लोड करने में विफल।"
+    }
+}
