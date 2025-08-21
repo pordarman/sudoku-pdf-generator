@@ -4,6 +4,8 @@ A powerful and easy-to-use web application for generating and solving Sudoku puz
 
 **Live Demo:** [https://pordarman.github.io/sudoku-pdf-generator](https://pordarman.github.io/sudoku-pdf-generator)
 
+[![Image](https://i.hizliresim.com/bib49m0.png)](https://pordarman.github.io/sudoku-pdf-generator)
+
 ---
 
 ## ✨ Features
