@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import "./App.css";
 import { useTranslation } from 'react-i18next';
 
@@ -228,7 +228,7 @@ function App() {
                         audio.play().catch(err => console.error("Audio playback error:", err));
 
                         // Open the PDF viewer in the previously opened tab
-                        const pdfViewerUrl = `/sudoku-pdf-generator/pdf/${uniqueId}`;
+                        const pdfViewerUrl = `/#/pdf/${uniqueId}`;
                         if (pdfPreviewTab) {
                             pdfPreviewTab.location.href = pdfViewerUrl;
                         }
@@ -377,7 +377,7 @@ function App() {
 
     // --- RENDER ---
     return (
-        <Router basename="/sudoku-pdf-generator">
+        <Router>
             <div className="App">
                 <Routes>
                     <Route path="/" element={
