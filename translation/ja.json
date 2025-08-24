@@ -52,12 +52,22 @@
         "solveButton": "解決する",
         "clearButton": "クリア"
     },
+    "pdfViewer": {
+        "expiredTitle": "ページの有効期限が切れました",
+        "expiredMessage": "セキュリティ上の理由により、生成されたPDFへのリンクは10分後に有効期限が切れました。新しいPDFを作成してください。",
+        "goBack": "ホームに戻る",
+        "loading": "PDFを読み込んでいます...",
+        "infoText": "このプレビューページは10分後に有効期限が切れます。",
+        "downloadButton": "PDFをダウンロード"
+    },
     "pdf": {
         "difficultyLabel": "難易度: {{difficulty}}",
         "pageLabel": "ページ {{currentPage}}/{{totalPages}}",
         "creatingMessage": "PDFを作成しています。お待ちください。作成中はこのページを離れても構いませんが、ページを更新したり閉じたりしないでください。",
-        "successMessage": "PDFの作成とダウンロードに成功しました！",
-        "noDifficultyError": "PDFを作成するには、少なくとも1つの難易度を選択してください。"
+        "successMessage": "PDF が正常に作成されました。プレビュー用に新しいタブで開きました。",
+        "noDifficultyError": "PDFを作成するには、少なくとも1つの難易度を選択してください。",
+        "pleaseWait": "お待ちください。PDFを生成中です...",
+"popupBlockedError": "新しいタブを開けませんでした。このサイトのブラウザのポップアップブロッカーを無効にして、もう一度お試しください。"
     },
     "error": {
         "generic": "エラーが発生しました。コンソールをご確認ください。",

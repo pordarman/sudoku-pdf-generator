@@ -52,12 +52,22 @@
         "solveButton": "Solve",
         "clearButton": "Clear"
     },
+    "pdfViewer": {
+        "expiredTitle": "Page Expired",
+        "expiredMessage": "The link to the generated PDF has expired after 10 minutes for security reasons. Please create a new PDF.",
+        "goBack": "Return to Home",
+        "loading": "Loading PDF...",
+        "infoText": "This preview page will expire after 10 minutes.",
+        "downloadButton": "Download PDF"
+    },
     "pdf": {
         "difficultyLabel": "Difficulty: {{difficulty}}",
         "pageLabel": "Page {{currentPage}}/{{totalPages}}",
         "creatingMessage": "Creating PDF, please wait... You can leave this page while it's being created, but please don't refresh or close the page.",
-        "successMessage": "PDF successfully created and downloaded!",
-        "noDifficultyError": "Please select at least one difficulty level to create PDF."
+        "successMessage": "PDF created successfully! Opened in a new tab for preview!",
+        "noDifficultyError": "Please select at least one difficulty level to create PDF.",
+        "pleaseWait": "Please wait, your PDF is being generated...",
+"popupBlockedError": "Couldn't open a new tab. Please disable your browser's pop-up blocker for this site and try again."
     },
     "error": {
         "generic": "An error occurred. Please check the console.",

@@ -52,12 +52,22 @@
         "solveButton": "Résoudre",
         "clearButton": "Effacer"
     },
+    "pdfViewer": {
+        "expiredTitle": "Page expirée",
+        "expiredMessage": "Le lien vers le PDF généré a expiré après 10 minutes pour des raisons de sécurité. Veuillez créer un nouveau PDF.",
+        "goBack": "Retour à l'accueil",
+        "loading": "Chargement du PDF...",
+        "infoText": "Cette page d'aperçu expirera après 10 minutes.",
+        "downloadButton": "Télécharger le PDF"
+    },
     "pdf": {
         "difficultyLabel": "Difficulté : {{difficulty}}",
         "pageLabel": "Page {{currentPage}}/{{totalPages}}",
         "creatingMessage": "Création du PDF, veuillez patienter... Vous pouvez quitter cette page pendant sa création, mais veuillez ne pas l'actualiser ni la fermer.",
-        "successMessage": "PDF créé et téléchargé avec succès !",
-        "noDifficultyError": "Veuillez sélectionner au moins une option Niveau de difficulté pour créer un PDF."
+        "successMessage": "PDF créé avec succès ! Ouverture dans un nouvel onglet pour aperçu !",
+        "noDifficultyError": "Veuillez sélectionner au moins une option Niveau de difficulté pour créer un PDF.",
+        "pleaseWait": "Veuillez patienter, votre PDF est en cours de génération...",
+"popupBlockedError": "Impossible d'ouvrir un nouvel onglet. Veuillez désactiver le bloqueur de fenêtres contextuelles de votre navigateur pour ce site et réessayer."
     },
     "error": {
         "generic": "Une erreur s'est produite. Veuillez vérifier la console.",

@@ -52,12 +52,22 @@
         "solveButton": "Resolver",
         "clearButton": "Borrar"
     },
+    "pdfViewer": {
+        "expiredTitle": "Página caducada",
+        "expiredMessage": "El enlace al PDF generado ha caducado después de 10 minutos por razones de seguridad. Por favor, cree un nuevo PDF.",
+        "goBack": "Volver a la página principal",
+        "loading": "Cargando PDF...",
+        "infoText": "Esta página de vista previa caducará después de 10 minutos.",
+        "downloadButton": "Descargar PDF"
+    },
     "pdf": {
         "difficultyLabel": "Dificultad: {{difficulty}}",
         "pageLabel": "Página {{currentPage}}/{{totalPages}}",
         "creatingMessage": "Creando PDF, espere... Puede salir de esta página mientras se crea, pero no la actualice ni la cierre.",
-        "successMessage": "PDF creado correctamente y ¡Descargado!",
-        "noDifficultyError": "Selecciona al menos un nivel de dificultad para crear el PDF."
+        "successMessage": "¡PDF creado correctamente! Abierto en una nueva pestaña para vista previa.",
+        "noDifficultyError": "Selecciona al menos un nivel de dificultad para crear el PDF.",
+        "pleaseWait": "Espere, su PDF se está generando...",
+"popupBlockedError": "No se pudo abrir una nueva pestaña. Desactive el bloqueador de ventanas emergentes de su navegador para este sitio y vuelva a intentarlo."
     },
     "error": {
         "generic": "Se ha producido un error. Por favor, revisa la consola.",

@@ -52,12 +52,22 @@
         "solveButton": "Lösen",
         "clearButton": "Löschen"
     },
+    "pdfViewer": {
+        "expiredTitle": "Seite abgelaufen",
+        "expiredMessage": "Der Link zum generierten PDF ist aus Sicherheitsgründen nach 10 Minuten abgelaufen. Bitte erstellen Sie ein neues PDF.",
+        "goBack": "Zurück zur Startseite",
+        "loading": "PDF wird geladen...",
+        "infoText": "Diese Vorschauseite läuft nach 10 Minuten ab.",
+        "downloadButton": "PDF herunterladen"
+    },
     "pdf": {
         "difficultyLabel": "Schwierigkeitsgrad: {{difficulty}}",
         "pageLabel": "Seite {{currentPage}}/{{totalPages}}",
         "creatingMessage": "PDF wird erstellt. Bitte warten... Sie können diese Seite während der Erstellung verlassen. Bitte aktualisieren oder schließen Sie die Seite nicht.",
-        "successMessage": "PDF erfolgreich erstellt und heruntergeladen!",
-        "noDifficultyError": "Bitte wählen Sie mindestens einen Schwierigkeitsgrad für die PDF-Erstellung aus."
+        "successMessage": "PDF erfolgreich erstellt! Zur Vorschau in einem neuen Tab geöffnet!",
+        "noDifficultyError": "Bitte wählen Sie mindestens einen Schwierigkeitsgrad für die PDF-Erstellung aus.",
+        "pleaseWait": "Bitte warten, Ihr PDF wird generiert...",
+        "popupBlockedError": "Es konnte kein neuer Tab geöffnet werden. Bitte deaktivieren Sie den Popup-Blocker Ihres Browsers für diese Website und versuchen Sie es erneut."
     },
     "error": {
         "generic": "Ein Fehler ist aufgetreten. Bitte überprüfen Sie die Konsole.",
