@@ -52,12 +52,22 @@
         "solveButton": "解答",
         "clearButton": "清除"
     },
+    "pdfViewer": {
+        "expiredTitle": "页面已过期",
+        "expiredMessage": "出于安全原因，生成的 PDF 链接将在 10 分钟后过期。请创建新的 PDF。",
+        "goBack": "返回首页",
+        "loading": "正在加载 PDF...",
+        "infoText": "此预览页面将在 10 分钟后过期。",
+        "downloadButton": "下载 PDF"
+    },
     "pdf": {
         "difficultyLabel": "难度：{{difficulty}}",
         "pageLabel": "页面 {{currentPage}}/{{totalPages}}",
         "creatingMessage": "正在创建 PDF，请稍候... 您可以在创建过程中离开此页面，但请不要刷新或关闭页面。",
-        "successMessage": "PDF 创建并下载成功！",
-        "noDifficultyError": "请至少选择一个难度级别来创建 PDF。"
+        "successMessage": "PDF 创建成功！在新标签页中打开预览！",
+        "noDifficultyError": "请至少选择一个难度级别来创建 PDF。",
+        "pleaseWait": "请稍候，您的 PDF 正在生成...",
+"popupBlockedError": "无法打开新标签页。请禁用浏览器针对此网站的弹出窗口拦截器，然后重试。"
     },
     "error": {
         "generic": "发生错误。请检查控制台。",

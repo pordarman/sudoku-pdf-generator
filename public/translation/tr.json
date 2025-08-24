@@ -52,12 +52,22 @@
         "solveButton": "Çöz",
         "clearButton": "Temizle"
     },
+    "pdfViewer": {
+        "expiredTitle": "PDF'in süresi doldu",
+        "expiredMessage": "PDF'in süresi dolmuş. Lütfen yeniden oluşturun.",
+        "goBack": "Geri Dön",
+        "loading": "Yükleniyor...",
+        "infoText": "PDF'inizi görüntülemek için lütfen bekleyin.",
+        "downloadButton": "PDF'i İndir"
+    },
     "pdf": {
         "difficultyLabel": "Zorluk: {{difficulty}}",
         "pageLabel": "Sayfa {{currentPage}}/{{totalPages}}",
         "creatingMessage": "PDF oluşturuluyor, lütfen bekleyiniz... Bu sırada sayfadan ayrılabilirsiniz ama sayfayı yenilemeyin veya kapatmayın.",
-        "successMessage": "PDF başarıyla oluşturuldu ve indirildi!",
-        "noDifficultyError": "Lütfen PDF oluşturmak için en az bir zorluk seviyesi seçin."
+        "successMessage": "PDF başarıyla oluşturuldu! PDF önizleme için yeni sekmede açıldı.",
+        "noDifficultyError": "Lütfen PDF oluşturmak için en az bir zorluk seviyesi seçin.",
+        "pleaseWait": "Lütfen bekleyin, PDF'iniz oluşturuluyor...",
+        "popupBlockedError": "Yeni sekme açılamadı. Lütfen tarayıcınızdaki pop-up engelleyiciyi bu site için devre dışı bırakın ve tekrar deneyin."
     },
     "error": {
         "generic": "Bir hata oluştu. Lütfen konsolu ve güvenlik kurallarınızı kontrol edin.",

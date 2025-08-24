@@ -52,12 +52,22 @@
         "solveButton": "Resolver",
         "clearButton": "Limpar"
     },
+    "pdfViewer": {
+        "expiredTitle": "Página expirada",
+        "expiredMessage": "A ligação para o PDF gerado expirou após 10 minutos por motivos de segurança. Crie um novo PDF.",
+        "goBack": "Voltar à página inicial",
+        "loading": "A carregar PDF...",
+        "infoText": "Esta página de pré-visualização expirará após 10 minutos.",
+        "downloadButton": "Descarregar PDF"
+    },
     "pdf": {
         "difficultyLabel": "Dificuldade: {{difficulty}}",
         "pageLabel": "Página {{currentPage}}/{{totalPages}}",
         "creatingMessage": "A criar PDF, aguarde... Pode sair desta página enquanto está a ser criada, mas não actualize nem feche a página.",
-        "successMessage": "PDF criado e descarregado com sucesso!",
-        "noDifficultyError": "Selecione pelo menos um nível de dificuldade para criar o PDF."
+        "successMessage": "PDF criado com sucesso! Aberto numa nova aba para visualização.",
+        "noDifficultyError": "Selecione pelo menos um nível de dificuldade para criar o PDF.",
+        "pleaseWait": "Aguarde, o seu PDF está a ser gerado...",
+"popupBlockedError": "Não foi possível abrir um novo separador. Desative o bloqueador de pop-ups do seu browser para este site e tente novamente."
     },
     "erro": {
         "generic": "Ocorreu um erro. Verifique a consola.",
