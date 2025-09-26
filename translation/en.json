@@ -26,6 +26,8 @@
         "title": "Sudoku Generator",
         "difficultyTitle": "Select Difficulty Levels",
         "pageSettingsTitle": "Configure Page Settings",
+        "switchToCustomMode": "Switch to Custom Mode",
+        "switchToSimpleMode": "Switch to Simple Mode",
         "pageCountLabel": "Number of Pages:",
         "sudokusPerPageLabel": "Sudoku Per Page:",
         "createPdfButton": "Create and Save PDF",
@@ -66,8 +68,9 @@
         "creatingMessage": "Creating PDF, please wait... You can leave this page while it's being created, but please don't refresh or close the page.",
         "successMessage": "PDF created successfully! Opened in a new tab for preview!",
         "noDifficultyError": "Please select at least one difficulty level to create PDF.",
+        "noSudokuCountError": "Please specify at least one Sudoku count for each difficulty level.",
         "pleaseWait": "Please wait, your PDF is being generated...",
-"popupBlockedError": "Couldn't open a new tab. Please disable your browser's pop-up blocker for this site and try again."
+        "popupBlockedError": "Couldn't open a new tab. Please disable your browser's pop-up blocker for this site and try again."
     },
     "error": {
         "generic": "An error occurred. Please check the console.",

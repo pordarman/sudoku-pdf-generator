@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/sudoku-pdf-generator/static/css/main.80a97a42.css",
-    "main.js": "/sudoku-pdf-generator/static/js/main.bf477da1.js",
-    "static/js/400.8a892a75.chunk.js": "/sudoku-pdf-generator/static/js/400.8a892a75.chunk.js",
+    "main.js": "/sudoku-pdf-generator/static/js/main.fbf453fa.js",
+    "static/js/400.83c07030.chunk.js": "/sudoku-pdf-generator/static/js/400.83c07030.chunk.js",
     "static/js/269.6dbc3f43.chunk.js": "/sudoku-pdf-generator/static/js/269.6dbc3f43.chunk.js",
     "static/js/453.a14bd40b.chunk.js": "/sudoku-pdf-generator/static/js/453.a14bd40b.chunk.js",
     "static/js/38.22b5fc3e.chunk.js": "/sudoku-pdf-generator/static/js/38.22b5fc3e.chunk.js",
     "static/media/finish.mp3": "/sudoku-pdf-generator/static/media/finish.45b82f4aca3ea93c0b13.mp3",
     "index.html": "/sudoku-pdf-generator/index.html",
     "main.80a97a42.css.map": "/sudoku-pdf-generator/static/css/main.80a97a42.css.map",
-    "main.bf477da1.js.map": "/sudoku-pdf-generator/static/js/main.bf477da1.js.map",
-    "400.8a892a75.chunk.js.map": "/sudoku-pdf-generator/static/js/400.8a892a75.chunk.js.map",
+    "main.fbf453fa.js.map": "/sudoku-pdf-generator/static/js/main.fbf453fa.js.map",
+    "400.83c07030.chunk.js.map": "/sudoku-pdf-generator/static/js/400.83c07030.chunk.js.map",
     "269.6dbc3f43.chunk.js.map": "/sudoku-pdf-generator/static/js/269.6dbc3f43.chunk.js.map",
     "453.a14bd40b.chunk.js.map": "/sudoku-pdf-generator/static/js/453.a14bd40b.chunk.js.map",
     "38.22b5fc3e.chunk.js.map": "/sudoku-pdf-generator/static/js/38.22b5fc3e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.80a97a42.css",
-    "static/js/main.bf477da1.js"
+    "static/js/main.fbf453fa.js"
   ]
 }

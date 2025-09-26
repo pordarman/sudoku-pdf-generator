@@ -26,6 +26,8 @@
         "title": "Generatore di Sudoku",
         "difficultyTitle": "Seleziona i livelli di difficoltà",
         "pageSettingsTitle": "Configura impostazioni pagina",
+        "switchToCustomMode": "Passa a Modalità Personalizzata",
+        "switchToSimpleMode": "Passa a Modalità Semplice",
         "pageCountLabel": "Numero di pagine:",
         "sudokusPerPageLabel": "Sudoku per pagina:",
         "createPdfButton": "Crea e salva PDF",
@@ -66,8 +68,9 @@
         "creatingMessage": "Creazione PDF in corso, attendere... È possibile uscire da questa pagina durante la creazione, ma non aggiornarla o chiuderla.",
         "successMessage": "PDF creato con successo! Aperto in una nuova scheda per l'anteprima.",
         "noDifficultyError": "Seleziona almeno un livello di difficoltà per creare il PDF.",
+        "noSudokuCountError": "Si prega di specificare almeno un numero di Sudoku per ogni livello di difficoltà.",
         "pleaseWait": "Attendi, il tuo PDF è in fase di generazione...",
-"popupBlockedError": "Impossibile aprire una nuova scheda. Disattiva il blocco pop-up del tuo browser per questo sito e riprova."
+        "popupBlockedError": "Impossibile aprire una nuova scheda. Disattiva il blocco pop-up del tuo browser per questo sito e riprova."
     },
     "error": {
         "generic": "Si è verificato un errore. Controlla la console.",

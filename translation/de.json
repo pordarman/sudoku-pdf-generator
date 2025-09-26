@@ -26,6 +26,8 @@
         "title": "Sudoku-Generator",
         "difficultyTitle": "Schwierigkeitsgrad auswählen",
         "pageSettingsTitle": "Seite konfigurieren Einstellungen",
+        "switchToCustomMode": "Wechseln zu benutzerdefiniertem Modus",
+        "switchToSimpleMode": "Wechseln zu einfachem Modus",
         "pageCountLabel": "Anzahl der Seiten:",
         "sudokusPerPageLabel": "Sudoku pro Seite:",
         "createPdfButton": "PDF erstellen und speichern",
@@ -66,6 +68,7 @@
         "creatingMessage": "PDF wird erstellt. Bitte warten... Sie können diese Seite während der Erstellung verlassen. Bitte aktualisieren oder schließen Sie die Seite nicht.",
         "successMessage": "PDF erfolgreich erstellt! Zur Vorschau in einem neuen Tab geöffnet!",
         "noDifficultyError": "Bitte wählen Sie mindestens einen Schwierigkeitsgrad für die PDF-Erstellung aus.",
+        "noSudokuCountError": "Bitte geben Sie für jeden Schwierigkeitsgrad mindestens eine Sudoku-Anzahl an.",
         "pleaseWait": "Bitte warten, Ihr PDF wird generiert...",
         "popupBlockedError": "Es konnte kein neuer Tab geöffnet werden. Bitte deaktivieren Sie den Popup-Blocker Ihres Browsers für diese Website und versuchen Sie es erneut."
     },
