@@ -45,8 +45,10 @@ const loadPdfFonts = async (doc) => {
                 reader.readAsDataURL(fontBlob);
             });
 
-            doc.addFileToVFS(font.path.split('/').pop(), base64);
-            doc.addFont(font.path.split('/').pop(), font.name, 'normal');
+            const fontName = font.path.split('/').pop();
+
+            doc.addFileToVFS(fontName, base64);
+            doc.addFont(fontName, font.name, 'normal');
         }));
 
         return true;
@@ -97,13 +99,14 @@ function App() {
     // States for PDF generator
     const [numPages, setNumPages] = useState(1);
     const [sudokusPerPage, setSudokusPerPage] = useState(1);
+    const [isCustomMode, setIsCustomMode] = useState(false);
     const [selectedDifficulties, setSelectedDifficulties] = useState({
-        'child': { removals: 35, labelKey: 'difficulty.child', isSelected: true, level: 0, estimatedTime: 100 }, // About 0.1 second
-        'easy': { removals: 42, labelKey: 'difficulty.easy', isSelected: true, level: 1, estimatedTime: 200 }, // About 0.2 second
-        'medium': { removals: 49, labelKey: 'difficulty.medium', isSelected: false, level: 2, estimatedTime: 500 }, // About 0.5 second
-        'hard': { removals: 56, labelKey: 'difficulty.hard', isSelected: false, level: 3, estimatedTime: 1000 }, // About 1 second
-        'expert': { removals: 59, labelKey: 'difficulty.expert', isSelected: false, level: 4, estimatedTime: 3000 }, // About 3 seconds
-        'impossible': { removals: 64, labelKey: 'difficulty.impossible', isSelected: false, level: 5, estimatedTime: 5000 } // About 5 seconds
+        'child': { removals: 35, labelKey: 'difficulty.child', isSelected: true, level: 0, estimatedTime: 100, count: 1 }, // About 0.1 second
+        'easy': { removals: 42, labelKey: 'difficulty.easy', isSelected: true, level: 1, estimatedTime: 200, count: 1 }, // About 0.2 second
+        'medium': { removals: 49, labelKey: 'difficulty.medium', isSelected: false, level: 2, estimatedTime: 400, count: 1 }, // About 0.4 second
+        'hard': { removals: 56, labelKey: 'difficulty.hard', isSelected: false, level: 3, estimatedTime: 1000, count: 1 }, // About 1 second
+        'expert': { removals: 59, labelKey: 'difficulty.expert', isSelected: false, level: 4, estimatedTime: 3000, count: 1 }, // About 3 seconds
+        'impossible': { removals: 64, labelKey: 'difficulty.impossible', isSelected: false, level: 5, estimatedTime: 6000, count: 1 } // About 6 seconds
     });
 
     // --- HELPER FUNCTIONS ---
@@ -128,6 +131,15 @@ function App() {
         }));
     };
 
+    // Change the number of puzzles for each difficulty
+    const handleDifficultyCountChange = (difficulty, count) => {
+        const newCount = Math.max(0, Number(count));
+        setSelectedDifficulties(prev => ({
+            ...prev,
+            [difficulty]: { ...prev[difficulty], count: newCount }
+        }));
+    };
+
     const handleCreatePdf = async () => {
         const chosenDifficulties = Object.keys(selectedDifficulties).filter(key => selectedDifficulties[key].isSelected);
         if (chosenDifficulties.length === 0) {
@@ -135,10 +147,25 @@ function App() {
             setIsError(false);
             return;
         }
+
+        let totalSudokus;
+        if (isCustomMode) {
+            totalSudokus = chosenDifficulties.reduce((acc, key) => acc + selectedDifficulties[key].count, 0);
+            if (totalSudokus === 0) {
+                setMessage(t("pdf.noSudokuCountError"));
+                setIsError(true);
+                return;
+            }
+        } else {
+            totalSudokus = numPages * sudokusPerPage;
+        }
+
+        const finalNumPages = Math.ceil(totalSudokus / sudokusPerPage);
+
         setMessage(t("pdf.creatingMessage"));
         setIsError(false);
         setIsLoading(true);
-        setGenerationProgress({ generated: 0, total: numPages * sudokusPerPage, estimatedTime: 'Calculating...' });
+        setGenerationProgress({ generated: 0, total: totalSudokus, estimatedTime: 'Calculating...' });
 
         // We show a "loading" page to the user until the PDF is ready.
         const pdfPreviewTab = window.open('', '_blank');
@@ -201,10 +228,10 @@ function App() {
                     }
 
                     let sudokuCounter = 0;
-                    for (let page = 0; page < numPages; page++) {
+                    for (let page = 0; page < finalNumPages; page++) {
                         if (page > 0) doc.addPage();
                         doc.setFontSize(14);
-                        doc.text(t("pdf.pageLabel", { currentPage: page + 1, totalPages: numPages }), 105, 15, { align: 'center' });
+                        doc.text(t("pdf.pageLabel", { currentPage: page + 1, totalPages: finalNumPages }), 105, 15, { align: 'center' });
                         const puzzlesForPage = generatedPuzzlesForPdf.slice(sudokuCounter, sudokuCounter + sudokusPerPage);
                         drawPageLayout(doc, puzzlesForPage, sudokusPerPage, t, fetchDifficultyWithLevel, i18n.resolvedLanguage);
                         sudokuCounter += sudokusPerPage;
@@ -264,10 +291,15 @@ function App() {
             }, 100);
         };
 
-        const totalSudokus = numPages * sudokusPerPage;
         sudokuWorker.postMessage({
             totalSudokus,
-            chosenDifficulties,
+            isCustomMode, 
+            chosenDifficulties: isCustomMode
+                ? chosenDifficulties.map(key => ({
+                    difficulty: key,
+                    count: selectedDifficulties[key].count
+                }))
+                : chosenDifficulties,
             difficultySettings: selectedDifficulties
         });
     };
@@ -400,6 +432,7 @@ function App() {
                                         t={t}
                                         selectedDifficulties={selectedDifficulties}
                                         handleDifficultyChange={handleDifficultyChange}
+                                        handleDifficultyCountChange={handleDifficultyCountChange}
                                         numPages={numPages}
                                         setNumPages={setNumPages}
                                         sudokusPerPage={sudokusPerPage}
@@ -407,6 +440,8 @@ function App() {
                                         handleCreatePdf={handleCreatePdf}
                                         isLoading={isLoading}
                                         generationProgress={generationProgress}
+                                        isCustomMode={isCustomMode}
+                                        setIsCustomMode={setIsCustomMode}
                                     />
                                 )}
                                 {activeTab === 'solver' && (

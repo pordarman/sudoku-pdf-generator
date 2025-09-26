@@ -80,7 +80,7 @@ export const generateSudoku = (removals) => {
     let bestPuzzle = null;
     let bestRemovedCount = -1;
     let attempts = 0;
-    const maxAttempts = 10;
+    const maxAttempts = 30; // Limit the number of attempts to avoid infinite loops.
 
     // Continue the loop until the target number of cells is removed or the maximum number of attempts is reached.
     while (attempts < maxAttempts) {

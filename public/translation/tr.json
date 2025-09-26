@@ -26,6 +26,8 @@
         "title": "Sudoku Oluşturucu",
         "difficultyTitle": "Zorluk Seviyelerini Seçin",
         "pageSettingsTitle": "Sayfa Ayarlarını Yapın",
+        "switchToCustomMode": "Özel Mod'a Geç",
+        "switchToSimpleMode": "Basit Mod'a Geç",
         "pageCountLabel": "Sayfa Sayısı:",
         "sudokusPerPageLabel": "Sayfa Başına Sudoku:",
         "createPdfButton": "PDF Oluştur ve Kaydet",
@@ -66,6 +68,7 @@
         "creatingMessage": "PDF oluşturuluyor, lütfen bekleyiniz... Bu sırada sayfadan ayrılabilirsiniz ama sayfayı yenilemeyin veya kapatmayın.",
         "successMessage": "PDF başarıyla oluşturuldu! PDF önizleme için yeni sekmede açıldı.",
         "noDifficultyError": "Lütfen PDF oluşturmak için en az bir zorluk seviyesi seçin.",
+        "noSudokuCountError": "Lütfen her zorluk seviyesi için en az bir Sudoku sayısı belirleyin.",
         "pleaseWait": "Lütfen bekleyin, PDF'iniz oluşturuluyor...",
         "popupBlockedError": "Yeni sekme açılamadı. Lütfen tarayıcınızdaki pop-up engelleyiciyi bu site için devre dışı bırakın ve tekrar deneyin."
     },

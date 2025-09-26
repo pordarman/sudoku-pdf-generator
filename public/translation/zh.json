@@ -26,6 +26,8 @@
         "title": "数独生成器",
         "difficultyTitle": "选择难度",
         "pageSettingsTitle": "配置页面设置",
+        "switchToCustomMode": "切换到自定义模式",
+        "switchToSimpleMode": "切换到简单模式",
         "pageCountLabel": "页数：",
         "sudokusPerPageLabel": "每页数独：",
         "createPdfButton": "创建并保存 PDF",
@@ -66,8 +68,9 @@
         "creatingMessage": "正在创建 PDF，请稍候... 您可以在创建过程中离开此页面，但请不要刷新或关闭页面。",
         "successMessage": "PDF 创建成功！在新标签页中打开预览！",
         "noDifficultyError": "请至少选择一个难度级别来创建 PDF。",
+        "noSudokuCountError": "请为每个难度级别指定至少一个数独数量。",
         "pleaseWait": "请稍候，您的 PDF 正在生成...",
-"popupBlockedError": "无法打开新标签页。请禁用浏览器针对此网站的弹出窗口拦截器，然后重试。"
+        "popupBlockedError": "无法打开新标签页。请禁用浏览器针对此网站的弹出窗口拦截器，然后重试。"
     },
     "error": {
         "generic": "发生错误。请检查控制台。",

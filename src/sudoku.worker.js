@@ -8,23 +8,40 @@ function numberToTime(estimatedTime) {
 }
 
 self.onmessage = (e) => {
-    const { totalSudokus, chosenDifficulties, difficultySettings } = e.data;
-
+    const { totalSudokus, chosenDifficulties, difficultySettings, isCustomMode } = e.data;
+    
+    let estimatedTime = 0;
+    const generationPlan = [];
     const generatedPuzzles = [];
 
-    const numSelected = chosenDifficulties.length;
-    const sudokusPerDifficulty = Math.floor(totalSudokus / numSelected);
-    const remainder = totalSudokus % numSelected;
+    if (isCustomMode) {
+        chosenDifficulties.forEach(item => {
+            if (item.count > 0) {
+                const difficulty = difficultySettings[item.difficulty];
+                generationPlan.push({
+                    difficultyKey: item.difficulty,
+                    count: item.count,
+                    settings: difficulty
+                });
+                estimatedTime += item.count * difficulty.estimatedTime;
+            }
+        });
+    } else {
+        const numSelected = chosenDifficulties.length;
+        const sudokusPerDifficulty = Math.floor(totalSudokus / numSelected);
+        const remainder = totalSudokus % numSelected;
 
-    let counts = chosenDifficulties.map((_, idx) =>
-        sudokusPerDifficulty + (idx < remainder ? 1 : 0)
-    );
-
-    let estimatedTime = counts.reduce((sum, count, idx) => {
-        const difficultyKey = chosenDifficulties[idx];
-        const difficulty = difficultySettings[difficultyKey];
-        return sum + (count * difficulty.estimatedTime);
-    }, 0);
+        chosenDifficulties.forEach((difficultyKey, idx) => {
+            const count = sudokusPerDifficulty + (idx < remainder ? 1 : 0);
+            const difficulty = difficultySettings[difficultyKey];
+            generationPlan.push({
+                difficultyKey: difficultyKey,
+                count: count,
+                settings: difficulty
+            });
+            estimatedTime += count * difficulty.estimatedTime;
+        });
+    }
 
     self.postMessage({
         type: 'progress',
@@ -33,31 +50,30 @@ self.onmessage = (e) => {
         estimatedTime: numberToTime(estimatedTime)
     });
 
-    for (let d = 0; d < chosenDifficulties.length; d++) {
-        const difficultyKey = chosenDifficulties[d];
-        const difficulty = difficultySettings[difficultyKey];
-        for (let i = 0; i < counts[d]; i++) {
+    for (const plan of generationPlan) {
+        console.log(`Generating ${plan.count} puzzles of difficulty ${plan.difficultyKey}`);
+        for (let i = 0; i < plan.count; i++) {
+            const result = generateSudoku(plan.settings.removals);
 
-            const result = generateSudoku(difficulty.removals);
+            if (result) {
+                generatedPuzzles.push({
+                    puzzle: result.puzzle,
+                    solution: result.solution,
+                    difficulty: plan.settings.level,
+                });
+            }
 
-            if (result) generatedPuzzles.push({
-                puzzle: result.puzzle,
-                solution: result.solution,
-                difficulty: difficulty.level,
-            });
+            estimatedTime -= plan.settings.estimatedTime;
 
-            estimatedTime -= difficulty.estimatedTime;
-
-            // Post the message when a puzzle is generated
             self.postMessage({
                 type: 'progress',
                 generated: generatedPuzzles.length,
                 total: totalSudokus,
-                estimatedTime: numberToTime(estimatedTime)
+                estimatedTime: numberToTime(Math.max(0, estimatedTime))
             });
         }
     }
-
+    
     self.postMessage({
         type: 'result',
         puzzles: generatedPuzzles

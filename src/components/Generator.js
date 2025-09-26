@@ -5,13 +5,16 @@ const Generator = ({
     t,
     selectedDifficulties,
     handleDifficultyChange,
+    handleDifficultyCountChange,
     numPages,
     setNumPages,
     sudokusPerPage,
     setSudokusPerPage,
     handleCreatePdf,
     isLoading,
-    generationProgress
+    generationProgress,
+    isCustomMode,
+    setIsCustomMode
 }) => {
     return (
         <div className="generator-container">
@@ -21,31 +24,50 @@ const Generator = ({
                     <h4>{t("generator.difficultyTitle")}</h4>
                     <div className="difficulty-options">
                         {Object.keys(selectedDifficulties).map(level => (
-                            <label key={level} htmlFor={`diff-${level}`}>
-                                <input
-                                    type="checkbox"
-                                    id={`diff-${level}`}
-                                    checked={selectedDifficulties[level].isSelected}
-                                    onChange={() => handleDifficultyChange(level)}
-                                />
-                                {t(selectedDifficulties[level].labelKey)}
-                            </label>
+                            <div key={level} className="difficulty-option-row">
+                                <label htmlFor={`diff-${level}`}>
+                                    <input
+                                        type="checkbox"
+                                        id={`diff-${level}`}
+                                        checked={selectedDifficulties[level].isSelected}
+                                        onChange={() => handleDifficultyChange(level)}
+                                    />
+                                    {t(selectedDifficulties[level].labelKey)}
+                                </label>
+                                {isCustomMode && (
+                                    <input
+                                        type="number"
+                                        className="difficulty-count-input"
+                                        value={selectedDifficulties[level].count}
+                                        onChange={(e) => handleDifficultyCountChange(level, e.target.value)}
+                                        min="0"
+                                        disabled={!selectedDifficulties[level].isSelected}
+                                    />
+                                )}
+                            </div>
                         ))}
                     </div>
                 </div>
                 <div className="control-section">
                     <h4>{t("generator.pageSettingsTitle")}</h4>
+
+                    <button onClick={() => setIsCustomMode(!isCustomMode)} className="custom-mode-toggle">
+                        {isCustomMode ? t("generator.switchToSimpleMode") : t("generator.switchToCustomMode")}
+                    </button>
+
                     <div className="page-settings">
-                        <div className="pdf-control-group">
-                            <label htmlFor="num-pages">{t("generator.pageCountLabel")}</label>
-                            <input
-                                type="number"
-                                id="num-pages"
-                                value={numPages}
-                                onChange={(e) => setNumPages(Math.max(1, Number(e.target.value)))}
-                                min="1"
-                            />
-                        </div>
+                        {!isCustomMode && (
+                            <div className="pdf-control-group">
+                                <label htmlFor="num-pages">{t("generator.pageCountLabel")}</label>
+                                <input
+                                    type="number"
+                                    id="num-pages"
+                                    value={numPages}
+                                    onChange={(e) => setNumPages(Math.max(1, Number(e.target.value)))}
+                                    min="1"
+                                />
+                            </div>
+                        )}
                         <div className="pdf-control-group">
                             <label htmlFor="sudokus-per-page">{t("generator.sudokusPerPageLabel")}</label>
                             <select
