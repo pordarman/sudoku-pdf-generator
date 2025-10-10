@@ -31,7 +31,7 @@
         "pageCountLabel": "Sayfa Sayısı:",
         "sudokusPerPageLabel": "Sayfa Başına Sudoku:",
         "createPdfButton": "PDF Oluştur ve Kaydet",
-        "creating": "Oluşturuluyor...",
+        "creating": "Oluşturuluyor..",
         "generatingStatus": "PDF oluşturuluyor... ({{generated}}/{{total}})\nTahmini Süre: {{estimatedTime}}",
         "one": "1",
         "two": "2",
