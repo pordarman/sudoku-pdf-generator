@@ -1,6 +1,166 @@
 // This file contains the basic logic for Sudoku: creating an empty board,
 // checking if a number is valid, and finding solutions.
 
+// --- Precomputed lookup tables ---
+
+// BOX_INDEX[i] = box index (0-8) for flat cell index i
+const BOX_INDEX = new Uint8Array(81);
+for (let i = 0; i < 81; i++) {
+    BOX_INDEX[i] = (((i / 9) | 0) / 3 | 0) * 3 + ((i % 9) / 3 | 0);
+}
+
+// BIT_TO_NUM[1 << n] = n, for n in 1..9
+const BIT_TO_NUM = new Uint8Array(1024);
+for (let n = 1; n <= 9; n++) BIT_TO_NUM[1 << n] = n;
+
+// POPCOUNT[x] = number of set bits in x, for x in 0..1023
+const POPCOUNT = new Uint8Array(1024);
+for (let i = 1; i < 1024; i++) POPCOUNT[i] = POPCOUNT[i >> 1] + (i & 1);
+
+// Bitmask covering numbers 1-9: bits 1..9 set = 0b1111111110 = 0x3FE
+const ALL_BITS = 0x3FE;
+
+// --- Conversion helpers (nested array <-> flat Uint8Array) ---
+
+const toFlat = (grid) => {
+    const flat = new Uint8Array(81);
+    for (let r = 0; r < 9; r++)
+        for (let c = 0; c < 9; c++)
+            flat[r * 9 + c] = grid[r][c];
+    return flat;
+};
+
+const toNested = (flat) =>
+    Array.from({ length: 9 }, (_, r) =>
+        Array.from({ length: 9 }, (_, c) => flat[r * 9 + c])
+    );
+
+// Build bitmask state (which numbers are placed) from a flat grid
+const buildState = (flat) => {
+    const rows = new Int32Array(9);
+    const cols = new Int32Array(9);
+    const boxes = new Int32Array(9);
+    for (let i = 0; i < 81; i++) {
+        const v = flat[i];
+        if (v !== 0) {
+            const bit = 1 << v;
+            rows[(i / 9) | 0] |= bit;
+            cols[i % 9] |= bit;
+            boxes[BOX_INDEX[i]] |= bit;
+        }
+    }
+    return { rows, cols, boxes };
+};
+
+// --- Internal backtracking solvers ---
+// All operate on flat Uint8Array + Int32Array bitmask state.
+// They modify the arrays in place but fully backtrack, so the caller's
+// state is restored after the call returns.
+
+// Fill flat with a random complete solution using MRV + shuffled candidates.
+const fillFlat = (flat, rows, cols, boxes) => {
+    // Find the empty cell with the fewest valid candidates (MRV heuristic)
+    let minCount = 11, minCell = -1;
+    for (let i = 0; i < 81; i++) {
+        if (flat[i] !== 0) continue;
+        const avail = ~(rows[(i / 9) | 0] | cols[i % 9] | boxes[BOX_INDEX[i]]) & ALL_BITS;
+        if (avail === 0) return false; // dead end: no valid number for this cell
+        const cnt = POPCOUNT[avail];
+        if (cnt < minCount) {
+            minCount = cnt;
+            minCell = i;
+            if (cnt === 1) break; // can't do better
+        }
+    }
+    if (minCell === -1) return true; // all cells filled
+
+    const r = (minCell / 9) | 0, c = minCell % 9, b = BOX_INDEX[minCell];
+    const avail = ~(rows[r] | cols[c] | boxes[b]) & ALL_BITS;
+
+    // Collect candidates and shuffle for a random board
+    const candidates = [];
+    for (let bits = avail; bits; bits &= bits - 1) candidates.push(bits & -bits);
+    shuffle(candidates);
+
+    for (const bit of candidates) {
+        flat[minCell] = BIT_TO_NUM[bit];
+        rows[r] |= bit; cols[c] |= bit; boxes[b] |= bit;
+        if (fillFlat(flat, rows, cols, boxes)) return true;
+        flat[minCell] = 0;
+        rows[r] ^= bit; cols[c] ^= bit; boxes[b] ^= bit;
+    }
+    return false;
+};
+
+// Count solutions up to `limit`. Fully backtracks — caller's state is restored.
+const countSolutionsInternal = (flat, rows, cols, boxes, limit) => {
+    let minCount = 11, minCell = -1;
+    for (let i = 0; i < 81; i++) {
+        if (flat[i] !== 0) continue;
+        const avail = ~(rows[(i / 9) | 0] | cols[i % 9] | boxes[BOX_INDEX[i]]) & ALL_BITS;
+        if (avail === 0) return 0;
+        const cnt = POPCOUNT[avail];
+        if (cnt < minCount) {
+            minCount = cnt;
+            minCell = i;
+            if (cnt === 1) break;
+        }
+    }
+    if (minCell === -1) return 1; // found a complete solution
+
+    const r = (minCell / 9) | 0, c = minCell % 9, b = BOX_INDEX[minCell];
+    let avail = ~(rows[r] | cols[c] | boxes[b]) & ALL_BITS;
+    let count = 0;
+
+    while (avail && count < limit) {
+        const bit = avail & -avail;
+        avail ^= bit;
+        flat[minCell] = BIT_TO_NUM[bit];
+        rows[r] |= bit; cols[c] |= bit; boxes[b] |= bit;
+        count += countSolutionsInternal(flat, rows, cols, boxes, limit - count);
+        flat[minCell] = 0;
+        rows[r] ^= bit; cols[c] ^= bit; boxes[b] ^= bit;
+    }
+    return count;
+};
+
+// Find all solutions up to `limit`, collecting them as nested arrays.
+const findSolutionsInternal = (flat, rows, cols, boxes, solutions, limit) => {
+    if (solutions.length >= limit) return;
+
+    let minCount = 11, minCell = -1;
+    for (let i = 0; i < 81; i++) {
+        if (flat[i] !== 0) continue;
+        const avail = ~(rows[(i / 9) | 0] | cols[i % 9] | boxes[BOX_INDEX[i]]) & ALL_BITS;
+        if (avail === 0) return;
+        const cnt = POPCOUNT[avail];
+        if (cnt < minCount) {
+            minCount = cnt;
+            minCell = i;
+            if (cnt === 1) break;
+        }
+    }
+    if (minCell === -1) {
+        solutions.push(toNested(flat));
+        return;
+    }
+
+    const r = (minCell / 9) | 0, c = minCell % 9, b = BOX_INDEX[minCell];
+    let avail = ~(rows[r] | cols[c] | boxes[b]) & ALL_BITS;
+
+    while (avail && solutions.length < limit) {
+        const bit = avail & -avail;
+        avail ^= bit;
+        flat[minCell] = BIT_TO_NUM[bit];
+        rows[r] |= bit; cols[c] |= bit; boxes[b] |= bit;
+        findSolutionsInternal(flat, rows, cols, boxes, solutions, limit);
+        flat[minCell] = 0;
+        rows[r] ^= bit; cols[c] ^= bit; boxes[b] ^= bit;
+    }
+};
+
+// --- Public API ---
+
 export const createEmptyGrid = () => Array(9).fill(null).map(() => Array(9).fill(0));
 
 export const isValid = (grid, row, col, num) => {
@@ -22,34 +182,6 @@ export const isValid = (grid, row, col, num) => {
     return true;
 };
 
-export const findAllSolutions = (grid, limit = 2000) => {
-    const solutions = [];
-    const find = (currentGrid) => {
-        // For performance, we stop after finding a maximum of 'limit' solutions.
-        // If we found 'limit' solutions, we inform the user that there may be more.
-        if (solutions.length >= limit) return;
-
-        for (let row = 0; row < 9; row++) {
-            for (let col = 0; col < 9; col++) {
-                if (currentGrid[row][col] === 0) {
-                    for (let num = 1; num <= 9; num++) {
-                        if (isValid(currentGrid, row, col, num)) {
-                            currentGrid[row][col] = num;
-                            find(currentGrid);
-                            currentGrid[row][col] = 0; // Backtracking
-                        }
-                    }
-                    return;
-                }
-            }
-        }
-        solutions.push(JSON.parse(JSON.stringify(currentGrid)));
-    };
-    find(JSON.parse(JSON.stringify(grid)));
-
-    return shuffle(solutions);
-};
-
 export const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -59,82 +191,87 @@ export const shuffle = (array) => {
 };
 
 export const fillGrid = (grid) => {
-    for (let i = 0; i < 81; i++) {
-        const row = Math.floor(i / 9), col = i % 9;
-        if (grid[row][col] === 0) {
-            const numbers = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-            for (const num of numbers) {
-                if (isValid(grid, row, col, num)) {
-                    grid[row][col] = num;
-                    if (fillGrid(grid)) return true;
-                    grid[row][col] = 0;
-                }
-            }
-            return false;
-        }
+    const flat = toFlat(grid);
+    const { rows, cols, boxes } = buildState(flat);
+    const result = fillFlat(flat, rows, cols, boxes);
+    if (result) {
+        for (let r = 0; r < 9; r++)
+            for (let c = 0; c < 9; c++)
+                grid[r][c] = flat[r * 9 + c];
     }
-    return true;
+    return result;
+};
+
+export const findAllSolutions = (grid, limit = 2000) => {
+    const flat = toFlat(grid);
+    const { rows, cols, boxes } = buildState(flat);
+    const solutions = [];
+    findSolutionsInternal(flat, rows, cols, boxes, solutions, limit);
+    return shuffle(solutions);
 };
 
 export const generateSudoku = (removals) => {
     let bestPuzzle = null;
     let bestRemovedCount = -1;
     let attempts = 0;
-    const maxAttempts = 30; // Limit the number of attempts to avoid infinite loops.
+    const maxAttempts = 30;
 
-    // Continue the loop until the target number of cells is removed or the maximum number of attempts is reached.
     while (attempts < maxAttempts) {
-        const grid = createEmptyGrid();
-        fillGrid(grid); // Create a new filled board from scratch for each attempt.
+        // Generate a complete random solution
+        const flat = new Uint8Array(81);
+        const rows = new Int32Array(9);
+        const cols = new Int32Array(9);
+        const boxes = new Int32Array(9);
+        fillFlat(flat, rows, cols, boxes);
 
-        const solution = JSON.parse(JSON.stringify(grid));
-        let puzzle = JSON.parse(JSON.stringify(solution));
+        const solution = flat.slice();
 
-        // Create a random removal order by shuffling the cells.
+        // Puzzle starts as a copy of the solution; cells get removed one by one
+        const puzzle = flat.slice();
+        const pRows = rows.slice();
+        const pCols = cols.slice();
+        const pBoxes = boxes.slice();
+
         const cells = shuffle(Array.from({ length: 81 }, (_, i) => i));
         let removedCount = 0;
 
-        for (const cellIndex of cells) {
-            if (removedCount >= removals) break; // If the target is reached, exit the loop.
+        for (const idx of cells) {
+            if (removedCount >= removals) break;
+            if (puzzle[idx] === 0) continue;
 
-            const row = Math.floor(cellIndex / 9);
-            const col = cellIndex % 9;
+            const r = (idx / 9) | 0, c = idx % 9, b = BOX_INDEX[idx];
+            const savedVal = puzzle[idx];
+            const bit = 1 << savedVal;
 
-            // If this cell is already empty, skip it (this shouldn't happen in this loop but it's a good check).
-            if (puzzle[row][col] === 0) continue;
+            // Tentatively remove the cell
+            puzzle[idx] = 0;
+            pRows[r] ^= bit; pCols[c] ^= bit; pBoxes[b] ^= bit;
 
-            const temp = puzzle[row][col];
-            puzzle[row][col] = 0;
-
-            // Check if the solution is still unique.
-            const solutions = findAllSolutions(puzzle, 2);
-            if (solutions.length !== 1) {
-                // If the solution is not unique, restore the removed number.
-                puzzle[row][col] = temp;
-            } else {
-                // If the solution is still unique, confirm the removal.
+            // Uniqueness check: countSolutionsInternal fully backtracks,
+            // so puzzle/pRows/pCols/pBoxes are restored after the call
+            if (countSolutionsInternal(puzzle, pRows, pCols, pBoxes, 2) === 1) {
                 removedCount++;
+            } else {
+                // Not unique — restore the cell
+                puzzle[idx] = savedVal;
+                pRows[r] |= bit; pCols[c] |= bit; pBoxes[b] |= bit;
             }
         }
 
-        // Did we reach the target at the end of this attempt?
         if (removedCount >= removals) {
-            return { puzzle, solution };
+            return { puzzle: toNested(puzzle), solution: toNested(solution) };
         }
 
-        // If this attempt didn't reach the target but was the best so far, keep it.
         if (removedCount > bestRemovedCount) {
             bestRemovedCount = removedCount;
-            bestPuzzle = { puzzle, solution };
+            bestPuzzle = { puzzle: toNested(puzzle), solution: toNested(solution) };
         }
-        
+
         attempts++;
     }
 
-    // If the maximum number of attempts has been reached and the target has still not been met,
-    // return the best attempt with a warning.
     if (bestRemovedCount < removals) {
-        console.warn(`Maximum number of attempts reached (${maxAttempts}). Target was ${removals} cells, best result is a puzzle with ${bestRemovedCount} cells removed.`);
+        console.warn(`Maximum attempts reached (${maxAttempts}). Target: ${removals}, best: ${bestRemovedCount}`);
     }
 
     return bestPuzzle;
