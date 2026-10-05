@@ -7,11 +7,16 @@
         "searching": "検索中...",
         "solution": "解答",
         "toggleTheme": "テーマ切替",
-        "footerText": "Sudoku PDF Generatorをご利用いただきありがとうございます！❤️"
+        "footerText": "Sudoku PDF Generatorをご利用いただきありがとうございます！❤️",
+        "themeDark": "ダーク",
+        "themeLight": "ライト"
     },
     "nav": {
         "generator": "PDFジェネレーター",
-        "solver": "ソルバー"
+        "solver": "ソルバー",
+        "modeApi": "オンラインAPI",
+        "modeLocal": "ローカルモード",
+        "toggleModeTitle": "処理モードを切り替える"
     },
     "difficulty": {
         "label": "難易度",
@@ -70,7 +75,8 @@
         "noDifficultyError": "PDFを作成するには、少なくとも1つの難易度を選択してください。",
         "noSudokuCountError": "各難易度に対して少なくとも1つの数独数を指定してください。",
         "pleaseWait": "お待ちください。PDFを生成中です...",
-        "popupBlockedError": "新しいタブを開けませんでした。このサイトのブラウザのポップアップブロッカーを無効にして、もう一度お試しください。"
+        "popupBlockedError": "新しいタブを開けませんでした。このサイトのブラウザのポップアップブロッカーを無効にして、もう一度お試しください。",
+        "apiError": "APIとの通信中にエラーが発生しました。もう一度お試しください。"
     },
     "error": {
         "generic": "エラーが発生しました。コンソールをご確認ください。",

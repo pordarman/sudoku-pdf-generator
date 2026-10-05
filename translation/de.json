@@ -7,11 +7,16 @@
         "searching": "Suchen...",
         "solution": "Lösung",
         "toggleTheme": "Thema umschalten",
-        "footerText": "Vielen Dank für die Nutzung von Sudoku PDF Generator! ❤️"
+        "footerText": "Vielen Dank für die Nutzung von Sudoku PDF Generator! ❤️",
+        "themeDark": "Dunkel",
+        "themeLight": "Hell"
     },
     "nav": {
         "generator": "PDF-Generator",
-        "solver": "Löser"
+        "solver": "Löser",
+        "modeApi": "Online-API",
+        "modeLocal": "Lokaler Modus",
+        "toggleModeTitle": "Verarbeitungsmodus wechseln"
     },
     "difficulty": {
         "label": "Schwierigkeitsgrad",
@@ -70,7 +75,8 @@
         "noDifficultyError": "Bitte wählen Sie mindestens einen Schwierigkeitsgrad für die PDF-Erstellung aus.",
         "noSudokuCountError": "Bitte geben Sie für jeden Schwierigkeitsgrad mindestens eine Sudoku-Anzahl an.",
         "pleaseWait": "Bitte warten, Ihr PDF wird generiert...",
-        "popupBlockedError": "Es konnte kein neuer Tab geöffnet werden. Bitte deaktivieren Sie den Popup-Blocker Ihres Browsers für diese Website und versuchen Sie es erneut."
+        "popupBlockedError": "Es konnte kein neuer Tab geöffnet werden. Bitte deaktivieren Sie den Popup-Blocker Ihres Browsers für diese Website und versuchen Sie es erneut.",
+        "apiError": "Beim Kommunizieren mit der API ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
     },
     "error": {
         "generic": "Ein Fehler ist aufgetreten. Bitte überprüfen Sie die Konsole.",

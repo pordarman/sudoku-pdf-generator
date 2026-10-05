@@ -7,11 +7,16 @@
         "searching": "Recherche...",
         "solution": "Solution",
         "toggleTheme": "Changer de thème",
-        "footerText": "Merci d'utiliser Sudoku PDF Generator! ❤️"
+        "footerText": "Merci d'utiliser Sudoku PDF Generator! ❤️",
+        "themeDark": "Sombre",
+        "themeLight": "Clair"
     },
     "nav": {
         "generator": "Générateur PDF",
-        "solver": "Solveur"
+        "solver": "Solveur",
+        "modeApi": "API en ligne",
+        "modeLocal": "Mode local",
+        "toggleModeTitle": "Changer de mode de traitement"
     },
     "difficulty": {
         "label": "Difficulté",
@@ -70,7 +75,8 @@
         "noDifficultyError": "Veuillez sélectionner au moins une option Niveau de difficulté pour créer un PDF.",
         "noSudokuCountError": "Veuillez spécifier au moins un nombre de Sudoku pour chaque niveau de difficulté.",
         "pleaseWait": "Veuillez patienter, votre PDF est en cours de génération...",
-        "popupBlockedError": "Impossible d'ouvrir un nouvel onglet. Veuillez désactiver le bloqueur de fenêtres contextuelles de votre navigateur pour ce site et réessayer."
+        "popupBlockedError": "Impossible d'ouvrir un nouvel onglet. Veuillez désactiver le bloqueur de fenêtres contextuelles de votre navigateur pour ce site et réessayer.",
+        "apiError": "Une erreur s'est produite lors de la communication avec l'API. Veuillez réessayer."
     },
     "error": {
         "generic": "Une erreur s'est produite. Veuillez vérifier la console.",
