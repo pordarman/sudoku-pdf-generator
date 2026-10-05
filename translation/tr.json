@@ -7,16 +7,11 @@
         "searching": "Aranıyor...",
         "solution": "Çözüm",
         "toggleTheme": "Temayı Değiştir",
-        "footerText": "Sudoku PDF Generator'i kullandığınız için teşekkür ederiz! ❤️",
-        "themeDark": "Koyu",
-        "themeLight": "Açık"
+        "footerText": "Sudoku PDF Generator'i kullandığınız için teşekkür ederiz! ❤️"
     },
     "nav": {
         "generator": "PDF Oluşturucu",
-        "solver": "Çözücü",
-        "modeApi": "Çevrimiçi API",
-        "modeLocal": "Yerel Mod",
-        "toggleModeTitle": "İşleme Modunu Değiştir"
+        "solver": "Çözücü"
     },
     "difficulty": {
         "label": "Zorluk",
@@ -75,8 +70,7 @@
         "noDifficultyError": "Lütfen PDF oluşturmak için en az bir zorluk seviyesi seçin.",
         "noSudokuCountError": "Lütfen her zorluk seviyesi için en az bir Sudoku sayısı belirleyin.",
         "pleaseWait": "Lütfen bekleyin, PDF'iniz oluşturuluyor...",
-        "popupBlockedError": "Yeni sekme açılamadı. Lütfen tarayıcınızdaki pop-up engelleyiciyi bu site için devre dışı bırakın ve tekrar deneyin.",
-        "apiError": "API ile ilgili bir hata oluştu. Lütfen tekrar deneyin."
+        "popupBlockedError": "Yeni sekme açılamadı. Lütfen tarayıcınızdaki pop-up engelleyiciyi bu site için devre dışı bırakın ve tekrar deneyin."
     },
     "error": {
         "generic": "Bir hata oluştu. Lütfen konsolu ve güvenlik kurallarınızı kontrol edin.",

@@ -7,16 +7,11 @@
         "searching": "Ricerca...",
         "solution": "Soluzione",
         "toggleTheme": "Cambia tema",
-        "footerText": "Grazie per aver utilizzato il Sudoku PDF Generator! ❤️",
-        "themeDark": "Scuro",
-        "themeLight": "Chiaro"
+        "footerText": "Grazie per aver utilizzato il Sudoku PDF Generator! ❤️"
     },
     "nav": {
         "generator": "Generatore PDF",
-        "solver": "Risolutore",
-        "modeApi": "API online",
-        "modeLocal": "Modalità locale",
-        "toggleModeTitle": "Cambia modalità di elaborazione"
+        "solver": "Risolutore"
     },
     "difficulty": {
         "label": "Difficoltà",
@@ -75,8 +70,7 @@
         "noDifficultyError": "Seleziona almeno un livello di difficoltà per creare il PDF.",
         "noSudokuCountError": "Si prega di specificare almeno un numero di Sudoku per ogni livello di difficoltà.",
         "pleaseWait": "Attendi, il tuo PDF è in fase di generazione...",
-        "popupBlockedError": "Impossibile aprire una nuova scheda. Disattiva il blocco pop-up del tuo browser per questo sito e riprova.",
-        "apiError": "Si è verificato un errore durante la comunicazione con l'API. Riprova."
+        "popupBlockedError": "Impossibile aprire una nuova scheda. Disattiva il blocco pop-up del tuo browser per questo sito e riprova."
     },
     "error": {
         "generic": "Si è verificato un errore. Controlla la console.",

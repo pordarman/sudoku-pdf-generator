@@ -7,16 +7,11 @@
         "searching": "Searching...",
         "solution": "Solution",
         "toggleTheme": "Toggle Theme",
-        "footerText": "Thank you for using Sudoku PDF Generator! ❤️",
-        "themeDark": "Dark",
-        "themeLight": "Light"
+        "footerText": "Thank you for using Sudoku PDF Generator! ❤️"
     },
     "nav": {
         "generator": "PDF Generator",
-        "solver": "Solver",
-        "modeApi": "Online API",
-    "modeLocal": "Local Mode",
-    "toggleModeTitle": "Switch Processing Mode"
+        "solver": "Solver"
     },
     "difficulty": {
         "label": "Difficulty",
@@ -75,8 +70,7 @@
         "noDifficultyError": "Please select at least one difficulty level to create PDF.",
         "noSudokuCountError": "Please specify at least one Sudoku count for each difficulty level.",
         "pleaseWait": "Please wait, your PDF is being generated...",
-        "popupBlockedError": "Couldn't open a new tab. Please disable your browser's pop-up blocker for this site and try again.",
-        "apiError": "An error occurred while communicating with the API. Please try again."
+        "popupBlockedError": "Couldn't open a new tab. Please disable your browser's pop-up blocker for this site and try again."
     },
     "error": {
         "generic": "An error occurred. Please check the console.",

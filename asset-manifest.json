@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/sudoku-pdf-generator/static/css/main.2785bb6f.css",
-    "main.js": "/sudoku-pdf-generator/static/js/main.e590f13f.js",
-    "static/js/332.056f07db.chunk.js": "/sudoku-pdf-generator/static/js/332.056f07db.chunk.js",
-    "static/js/617.9b320edd.chunk.js": "/sudoku-pdf-generator/static/js/617.9b320edd.chunk.js",
+    "main.css": "/sudoku-pdf-generator/static/css/main.80a97a42.css",
+    "main.js": "/sudoku-pdf-generator/static/js/main.18860bbd.js",
+    "static/js/332.78965fe2.chunk.js": "/sudoku-pdf-generator/static/js/332.78965fe2.chunk.js",
+    "static/js/617.90340b05.chunk.js": "/sudoku-pdf-generator/static/js/617.90340b05.chunk.js",
     "static/js/157.af6c7466.chunk.js": "/sudoku-pdf-generator/static/js/157.af6c7466.chunk.js",
     "static/js/430.7cc3db7b.chunk.js": "/sudoku-pdf-generator/static/js/430.7cc3db7b.chunk.js",
     "static/media/finish.mp3": "/sudoku-pdf-generator/static/media/finish.45b82f4aca3ea93c0b13.mp3",
     "index.html": "/sudoku-pdf-generator/index.html",
-    "main.2785bb6f.css.map": "/sudoku-pdf-generator/static/css/main.2785bb6f.css.map",
-    "main.e590f13f.js.map": "/sudoku-pdf-generator/static/js/main.e590f13f.js.map",
-    "332.056f07db.chunk.js.map": "/sudoku-pdf-generator/static/js/332.056f07db.chunk.js.map",
-    "617.9b320edd.chunk.js.map": "/sudoku-pdf-generator/static/js/617.9b320edd.chunk.js.map",
+    "main.80a97a42.css.map": "/sudoku-pdf-generator/static/css/main.80a97a42.css.map",
+    "main.18860bbd.js.map": "/sudoku-pdf-generator/static/js/main.18860bbd.js.map",
+    "332.78965fe2.chunk.js.map": "/sudoku-pdf-generator/static/js/332.78965fe2.chunk.js.map",
+    "617.90340b05.chunk.js.map": "/sudoku-pdf-generator/static/js/617.90340b05.chunk.js.map",
     "157.af6c7466.chunk.js.map": "/sudoku-pdf-generator/static/js/157.af6c7466.chunk.js.map",
     "430.7cc3db7b.chunk.js.map": "/sudoku-pdf-generator/static/js/430.7cc3db7b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2785bb6f.css",
-    "static/js/main.e590f13f.js"
+    "static/css/main.80a97a42.css",
+    "static/js/main.18860bbd.js"
   ]
 }

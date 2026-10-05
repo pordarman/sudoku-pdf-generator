@@ -7,16 +7,11 @@
         "searching": "正在搜索...",
         "solution": "求解",
         "toggleTheme": "切换主题",
-        "footerText": "感谢您使用Sudoku PDF Generator！❤️",
-        "themeDark": "深色",
-        "themeLight": "浅色"
+        "footerText": "感谢您使用Sudoku PDF Generator！❤️"
     },
     "nav": {
         "generator": "PDF 生成器",
-        "solver": "求解器",
-        "modeApi": "在线 API",
-        "modeLocal": "本地模式",
-        "toggleModeTitle": "切换处理模式"
+        "solver": "求解器"
     },
     "difficulty": {
         "label": "难度",
@@ -75,8 +70,7 @@
         "noDifficultyError": "请至少选择一个难度级别来创建 PDF。",
         "noSudokuCountError": "请为每个难度级别指定至少一个数独数量。",
         "pleaseWait": "请稍候，您的 PDF 正在生成...",
-        "popupBlockedError": "无法打开新标签页。请禁用浏览器针对此网站的弹出窗口拦截器，然后重试。",
-        "apiError": "与 API 通信时出错。请重试。"
+        "popupBlockedError": "无法打开新标签页。请禁用浏览器针对此网站的弹出窗口拦截器，然后重试。"
     },
     "error": {
         "generic": "发生错误。请检查控制台。",
